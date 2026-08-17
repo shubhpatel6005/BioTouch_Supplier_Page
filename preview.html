@@ -359,6 +359,16 @@
     <div class="sp-tabpanel" data-panel="faqs" hidden>
       <div class="sp-toc-layout">
         <div class="sp-toc-content">
+          <label class="sp-faq-search-field">
+            <input type="search" class="sp-faq-search-input" id="faq-search-input" placeholder="Search by Keyword" />
+            <svg class="sp-faq-search-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <circle cx="9" cy="9" r="6.2" stroke="currentColor" stroke-width="2" />
+              <path d="M17 17l-4.2-4.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </label>
+
+          <p class="sp-text sp-text-muted" id="faq-no-results" hidden></p>
+
           <section class="sp-faq-group" id="coupa-at-biotouch">
             <h2 class="sp-faq-heading">Coupa at BioTouch</h2>
             <div class="sp-accordion" id="faq-group-1"></div>
@@ -565,10 +575,6 @@ const supplierGuides = [
   'Coupa Overview Guide',
   'Coupa Supplier Portal Admin and User Guide',
 ];
-document.getElementById('guides-grid').innerHTML = supplierGuides.map((title) =>
-  `<a class="sp-doc-card" href="#"><h4>${title}</h4><span class="sp-doc-download">Download PDF ${ICONS.docdl}</span></a>`
-).join('');
-
 document.getElementById('guides-accordion-trigger').addEventListener('click', () => {
   const item = document.getElementById('guides-accordion');
   const open = item.classList.toggle('is-open');
@@ -640,8 +646,17 @@ const faqGroup3 = [
   { q: 'What should I do if I receive a “We’re sorry, but something went wrong” error?', a: 'Contact Coupa Support directly.' },
 ];
 
-function renderAccordion(mountId, items) {
+// Wraps every case-insensitive match of `needle` inside `text` in a <mark>
+// (yellow-highlighted). Returns `text` unchanged when there's no needle.
+function highlightText(text, needle) {
+  if (!needle) return text;
+  const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return text.replace(new RegExp(`(${escaped})`, 'ig'), '<mark class="sp-search-highlight">$1</mark>');
+}
+
+function renderAccordion(mountId, items, forceOpen, needle) {
   const mount = document.getElementById(mountId);
+  const openAttr = forceOpen ? ' is-open' : '';
   mount.innerHTML = items.map((item, i) => {
     const listHtml = item.list
       ? `<ul class="sp-accordion-list">${item.list.map((entry) => `<li>${entry}</li>`).join('')}</ul>`
@@ -652,12 +667,12 @@ function renderAccordion(mountId, items) {
           .join('')}</${item.listType === 'ol' ? 'ol' : 'ul'}>`
       : '';
     const afterHtml = item.after ? `<p>${item.after}</p>` : '';
-    return `<div class="sp-accordion-item sp-accordion-item-flat" data-acc="${mountId}-${i}">
-      <button type="button" class="sp-accordion-trigger" aria-expanded="false">
-        <span>${item.q}</span>
+    return `<div class="sp-accordion-item sp-accordion-item-flat${openAttr}" data-acc="${mountId}-${i}">
+      <button type="button" class="sp-accordion-trigger" aria-expanded="${forceOpen ? 'true' : 'false'}">
+        <span>${highlightText(item.q, needle)}</span>
         <span class="sp-doc-toggle" aria-hidden="true"></span>
       </button>
-      <div class="sp-accordion-panel"><div class="sp-accordion-panel-inner"><div class="sp-accordion-body"><p>${item.a}</p>${listHtml}${listItemsHtml}${afterHtml}</div></div></div>
+      <div class="sp-accordion-panel"><div class="sp-accordion-panel-inner"><div class="sp-accordion-body"><p>${highlightText(item.a, needle)}</p>${listHtml}${listItemsHtml}${afterHtml}</div></div></div>
     </div>`;
   }).join('');
   mount.querySelectorAll('.sp-accordion-trigger').forEach((btn) => {
@@ -668,10 +683,54 @@ function renderAccordion(mountId, items) {
     });
   });
 }
-renderAccordion('faq-group-1', faqGroup1);
-renderAccordion('faq-group-2', faqGroup2);
-renderAccordion('faq-group-orders', faqGroupOrders);
-renderAccordion('faq-group-3', faqGroup3);
+
+/* ---- FAQ search: filter questions (by q or a) and guides (by title) ---- */
+const FAQ_GROUPS = [
+  { sectionId: 'coupa-at-biotouch', mountId: 'faq-group-1', items: faqGroup1 },
+  { sectionId: 'invoicing', mountId: 'faq-group-2', items: faqGroup2 },
+  { sectionId: 'orders', mountId: 'faq-group-orders', items: faqGroupOrders },
+  { sectionId: 'technical-support-and-help', mountId: 'faq-group-3', items: faqGroup3 },
+];
+const faqSearchInput = document.getElementById('faq-search-input');
+const faqNoResults = document.getElementById('faq-no-results');
+
+function setTocLinkVisible(targetId, visible) {
+  const link = document.querySelector(`.sp-toc-card-link[data-toc-target="${targetId}"]`);
+  if (link) link.closest('li').hidden = !visible;
+}
+
+function applyFaqSearch() {
+  const needle = faqSearchInput.value.trim().toLowerCase();
+  let anyVisible = false;
+
+  FAQ_GROUPS.forEach(({ sectionId, mountId, items }) => {
+    const filtered = needle
+      ? items.filter((item) => item.q.toLowerCase().includes(needle) || (item.a || '').toLowerCase().includes(needle))
+      : items;
+    renderAccordion(mountId, filtered, Boolean(needle), needle);
+    const visible = filtered.length > 0;
+    document.getElementById(sectionId).hidden = !visible;
+    setTocLinkVisible(sectionId, visible);
+    if (visible) anyVisible = true;
+  });
+
+  const filteredGuides = needle ? supplierGuides.filter((title) => title.toLowerCase().includes(needle)) : supplierGuides;
+  document.getElementById('guides-grid').innerHTML = filteredGuides.map((title) =>
+    `<a class="sp-doc-card" href="#"><h4>${highlightText(title, needle)}</h4><span class="sp-doc-download">Download PDF ${ICONS.docdl}</span></a>`
+  ).join('');
+  const guidesVisible = filteredGuides.length > 0;
+  document.getElementById('guides-accordion').hidden = !guidesVisible;
+  setTocLinkVisible('guides-accordion', guidesVisible);
+  if (guidesVisible) anyVisible = true;
+
+  faqNoResults.hidden = anyVisible;
+  if (!anyVisible) faqNoResults.textContent = `No results for “${faqSearchInput.value}”. Try a different search term.`;
+
+  // Let the TOC scroll-spy recompute now that visibility has changed.
+  window.dispatchEvent(new Event('scroll'));
+}
+faqSearchInput.addEventListener('input', applyFaqSearch);
+applyFaqSearch();
 
 /* ---- tab / subtab switching ---- */
 const HERO_CONTENT = {

@@ -1115,6 +1115,63 @@
   transform: translateX(-50%) scaleY(0);
 }
 
+/* ------------------------------- FAQ search -------------------------------- */
+/* Plain white pill search field with a green search icon — sits in normal
+   page flow (no full-bleed band). */
+.sp-faq-search-field {
+  position: relative;
+  display: block;
+}
+
+.sp-faq-search-input {
+  width: 100%;
+  appearance: none;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--bt-purple-dark);
+  background: #ffffff;
+  border: 1px solid var(--bt-border);
+  border-radius: var(--radius-pill);
+  padding: 16px 60px 16px 28px;
+  box-shadow: var(--shadow-card);
+}
+
+/* Safari/Chrome add a native "clear" X and magnifier to type="search"
+   fields — hidden since we render our own icon and don't want a duplicate. */
+.sp-faq-search-input::-webkit-search-cancel-button,
+.sp-faq-search-input::-webkit-search-decoration {
+  appearance: none;
+}
+
+.sp-faq-search-input::placeholder {
+  color: var(--bt-purple-dark);
+  opacity: 0.8;
+  font-weight: 700;
+}
+
+.sp-faq-search-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(96, 188, 20, 0.55), 0 20px 40px -18px rgba(0, 0, 0, 0.4);
+}
+
+.sp-faq-search-icon {
+  position: absolute;
+  top: 50%;
+  right: 26px;
+  transform: translateY(-50%);
+  color: var(--bt-green);
+  pointer-events: none;
+}
+
+/* Search-term match highlight — question/answer text and guide titles. */
+.sp-search-highlight {
+  background: #fde68a;
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 1px;
+}
+
 /* -------------------------------- FAQ (flat) ------------------------------- */
 /* Flat divider-list style, matching the reference: bold heading, then each
    question as a plain row with a bottom-border divider and a +/- mark —
@@ -1415,6 +1472,17 @@
   .sp-toc-card {
     padding: 20px 18px;
   }
+
+  /* The 60px/28px side padding (sized for the full-width desktop bar) reads
+     as oversized once the field itself has shrunk this narrow. */
+  .sp-faq-search-input {
+    font-size: 15px;
+    padding: 14px 48px 14px 20px;
+  }
+
+  .sp-faq-search-icon {
+    right: 18px;
+  }
 }
 
 /* Small phone — tighten gutters further and let action buttons take the
@@ -1446,5 +1514,16 @@
   .sp-contact-submit {
     width: 100%;
     justify-content: center;
+  }
+
+  .sp-faq-search-input {
+    font-size: 14.5px;
+    padding: 12px 42px 12px 18px;
+  }
+
+  .sp-faq-search-icon {
+    right: 16px;
+    width: 17px;
+    height: 17px;
   }
 }

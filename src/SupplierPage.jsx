@@ -15,6 +15,7 @@ import {
   ClipboardIcon,
   StarIcon,
   DocumentDownloadIcon,
+  SearchIcon,
 } from './icons.jsx'
 
 const MAIN_TABS = [
@@ -166,7 +167,7 @@ function SupplierTab({ onNavigate }) {
 // (+/-), revealing a 3-up card grid and a "Download All" button. Reused for
 // "Useful Documents" (Supplier tab) and "Supplier Guides" (FAQs tab) — same
 // box design both places, per request.
-function DocAccordion({ id, title, documents, defaultOpen = false }) {
+function DocAccordion({ id, title, documents, defaultOpen = false, query = '' }) {
   const [open, setOpen] = useState(defaultOpen)
 
   return (
@@ -186,7 +187,7 @@ function DocAccordion({ id, title, documents, defaultOpen = false }) {
             <div className="sp-doc-grid">
               {documents.map((doc) => (
                 <a className="sp-doc-card" href="#" key={doc.title}>
-                  <h4>{doc.title}</h4>
+                  <h4>{highlightText(doc.title, query)}</h4>
                   <span className="sp-doc-download">
                     Download PDF
                     <DocumentDownloadIcon />
@@ -260,6 +261,25 @@ function renderRichText(paragraph, onNavigate) {
       </a>
     )
   })
+}
+
+// Wraps every case-insensitive match of `query` inside `text` in a <mark>
+// (yellow-highlighted). Returns `text` unchanged when there's no query.
+// Used by the FAQ search to highlight matches in questions, answers, and
+// guide titles.
+function highlightText(text, query) {
+  if (!query || !text) return text
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const parts = text.split(new RegExp(`(${escaped})`, 'ig'))
+  return parts.map((part, i) =>
+    part.toLowerCase() === query.toLowerCase() ? (
+      <mark className="sp-search-highlight" key={i}>
+        {part}
+      </mark>
+    ) : (
+      part
+    )
+  )
 }
 
 /* ------------------------------- CSP tab -------------------------------- */
@@ -593,41 +613,96 @@ function StepImage({ src, alt }) {
 // Flat divider-list style (heading + plain +/- rows), matching the WM
 // reference — no boxed card, no icon chip, no circular chevron badge.
 
-// "Table of Content" entries for the FAQ tab's side card — one per question
-// group plus the Supplier Guides accordion below them.
-const FAQ_TOC_ITEMS = [
-  ...faqTab.groups.map((group) => ({ id: group.id, label: group.title })),
-  { id: 'guides-accordion', label: 'Supplier Guides' },
-]
-
 function FaqTab() {
+  const [query, setQuery] = useState('')
+  const needle = query.trim().toLowerCase()
+
+  // Empty query short-circuits to the full, unfiltered lists — searching
+  // matches a question's text or its answer, and a guide's title.
+  const filteredGroups = needle
+    ? faqTab.groups
+        .map((group) => ({
+          ...group,
+          items: group.items.filter(
+            (item) => item.q.toLowerCase().includes(needle) || item.a?.toLowerCase().includes(needle)
+          ),
+        }))
+        .filter((group) => group.items.length > 0)
+    : faqTab.groups
+
+  const filteredGuides = needle
+    ? supplierGuides.filter((doc) => doc.title.toLowerCase().includes(needle))
+    : supplierGuides
+
+  const showGuides = !needle || filteredGuides.length > 0
+  const hasResults = filteredGroups.length > 0 || showGuides
+
+  // The Table of Content only lists whatever's actually showing, so a
+  // search that filters a whole group (or the guides) out doesn't leave a
+  // link pointing at an empty section.
+  const tocItems = [
+    ...filteredGroups.map((group) => ({ id: group.id, label: group.title })),
+    ...(showGuides ? [{ id: 'guides-accordion', label: 'Supplier Guides' }] : []),
+  ]
+
   return (
     <div className="sp-tabpanel">
       <div className="sp-toc-layout">
         <div className="sp-toc-content">
-          {faqTab.groups.map((group) => (
+          <label className="sp-faq-search-field">
+            <input
+              type="search"
+              className="sp-faq-search-input"
+              placeholder="Search by Keyword"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+            />
+            <SearchIcon className="sp-faq-search-icon" aria-hidden="true" />
+          </label>
+
+          {!hasResults && (
+            <p className="sp-text sp-text-muted">No results for “{query}”. Try a different search term.</p>
+          )}
+
+          {filteredGroups.map((group) => (
             <section className="sp-faq-group" id={group.id} key={group.title}>
               <h2 className="sp-faq-heading">{group.title}</h2>
               <div className="sp-accordion">
                 {group.items.map((item) => (
-                  <AccordionItem key={item.q} item={item} />
+                  <AccordionItem key={item.q} item={item} forceOpen={Boolean(needle)} query={needle} />
                 ))}
               </div>
             </section>
           ))}
-          <DocAccordion id="guides-accordion" title="Supplier Guides" documents={supplierGuides} defaultOpen />
+
+          {showGuides && (
+            <DocAccordion
+              id="guides-accordion"
+              title="Supplier Guides"
+              documents={filteredGuides}
+              defaultOpen
+              query={needle}
+            />
+          )}
         </div>
 
-        <TocCard items={FAQ_TOC_ITEMS} />
+        {tocItems.length > 0 && <TocCard items={tocItems} />}
       </div>
     </div>
   )
 }
 
-function AccordionItem({ item }) {
+function AccordionItem({ item, forceOpen = false, query = '' }) {
   const { q, a, list, listType = 'ul', listItems, after } = item
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(forceOpen)
   const ListTag = listType === 'ol' ? 'ol' : 'ul'
+
+  // Re-syncs to forceOpen only when *it* changes (search started/cleared),
+  // not on every render, so a question the user manually collapsed while
+  // still searching stays collapsed instead of snapping back open.
+  useEffect(() => {
+    setOpen(forceOpen)
+  }, [forceOpen])
 
   return (
     <div className={`sp-accordion-item sp-accordion-item-flat ${open ? 'is-open' : ''}`}>
@@ -637,13 +712,13 @@ function AccordionItem({ item }) {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
       >
-        <span>{q}</span>
+        <span>{highlightText(q, query)}</span>
         <span className="sp-doc-toggle" aria-hidden="true" />
       </button>
       <div className="sp-accordion-panel">
         <div className="sp-accordion-panel-inner">
           <div className="sp-accordion-body">
-            <p>{a}</p>
+            <p>{highlightText(a, query)}</p>
 
             {list && (
               <ul className="sp-accordion-list">
