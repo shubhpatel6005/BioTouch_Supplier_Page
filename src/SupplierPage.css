@@ -1,0 +1,1450 @@
+/* Brand tokens pulled from biotouchglobal.com's own stylesheet */
+.sp-page {
+  --bt-green: #60bc14;
+  --bt-green-dark: #4c9610;
+  --bt-purple: rgb(82, 58, 110);
+  --bt-purple-dark: rgb(82, 58, 110);
+  --bt-teal: #4eb3bd;
+  --bt-teal-dark: #3a8f97;
+  --bt-gray-900: #2f2a38;
+  --bt-gray-600: #5a5760;
+  --bt-gray-400: #a6a8ab;
+  --bt-bg-soft: #f6f6f8;
+  --bt-bg-soft-2: #f2f0f7;
+  --bt-bg-page: #f7f6fb;
+  --bt-border: #e7e5ec;
+  --radius-lg: 32px;
+  --radius-md: 20px;
+  --radius-sm: 14px;
+  --radius-pill: 9999px;
+  --shadow-card: 0 20px 40px -32px rgba(46, 27, 68, 0.35);
+  --shadow-card-hover: 0 24px 48px -24px rgba(46, 27, 68, 0.4);
+
+  font-family: 'Century Gothic', CenturyGothic, AppleGothic, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  color: var(--bt-gray-900);
+  background: var(--bt-bg-page);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-page * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------------------------------- Hero --------------------------------- */
+
+.sp-hero {
+  background: var(--bt-purple-dark);
+  padding: 48px 0 56px;
+  position: relative;
+  overflow: hidden;
+}
+
+.sp-hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.sp-hero-blob-a {
+  right: -120px;
+  top: -120px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.16), transparent 70%);
+}
+
+.sp-hero-blob-b {
+  left: -100px;
+  bottom: -120px;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.18), transparent 70%);
+}
+
+.sp-hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1.4px, transparent 1.4px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 70%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 70%);
+  pointer-events: none;
+}
+
+.sp-hero-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 56px;
+  position: relative;
+  z-index: 1;
+}
+
+.sp-hero-title {
+  font-size: clamp(34px, 4.4vw, 46px);
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 12px;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.sp-hero-sub {
+  font-size: clamp(17px, 2vw, 19px);
+  font-weight: 600;
+  color: #ffffff;
+  max-width: 720px;
+  margin: 0 0 10px;
+  text-wrap: balance;
+}
+
+.sp-hero-body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 700px;
+  margin: 0;
+}
+
+/* -------------------------------- Tab nav -------------------------------- */
+/* Full-width rectangle bar flush under the hero (not a floating pill), with
+   a dark-purple underline marking the active tab. */
+
+.sp-tabnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid var(--bt-border);
+  box-shadow: 0 12px 24px -20px rgba(46, 27, 68, 0.35);
+}
+
+.sp-tabnav-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 56px;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+}
+
+.sp-tab {
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #000000;
+  padding: 18px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex: 0 0 auto;
+  text-align: center;
+  position: relative;
+  transition: color 0.15s ease;
+}
+
+.sp-tab::after {
+  content: '';
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+
+.sp-tab:hover {
+  color: #000000;
+}
+
+.sp-tab.is-active {
+  color: #000000;
+}
+
+.sp-tab.is-active::after {
+  background: var(--bt-purple-dark);
+}
+
+/* The tab row's own padding puts every tab's label ~20px right of its own
+   button edge — fine between tabs, but it left the first tab's text (and
+   its underline) sitting to the right of "Suppliers" / the images / the
+   document boxes above and below. Zero it out just for the first tab so
+   its text starts on the exact same vertical line as everything else. */
+.sp-tab:first-child {
+  padding-left: 0;
+}
+
+.sp-tab:first-child::after {
+  left: 0;
+}
+
+/* -------------------------------- Container ------------------------------ */
+
+.sp-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 48px 56px 96px;
+}
+
+.sp-tabpanel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  animation: sp-fade-up 0.35s ease both;
+}
+
+.sp-tabpanel-flush {
+  gap: 0;
+}
+
+@keyframes sp-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------- Promo cards (3-up, top) ------------------------ */
+/* Three large, perfectly-aligned cards: image -> big heading -> body, each
+   linking down to the matching full-detail .sp-card below via its #id. */
+
+.sp-promo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.sp-promo-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.sp-promo-frame {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.sp-promo-underline {
+  display: block;
+  width: 100%;
+  height: 4px;
+  margin-top: 10px;
+  background: var(--bt-purple-dark);
+}
+
+.sp-promo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sp-promo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bt-purple);
+  background: linear-gradient(135deg, var(--bt-bg-soft-2), var(--bt-bg-soft));
+}
+
+.sp-promo-placeholder svg {
+  width: 44px;
+  height: 44px;
+}
+
+.sp-promo-heading {
+  width: 100%;
+  margin: 18px 0 10px;
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 800;
+  color: var(--bt-gray-900);
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.sp-promo-body {
+  width: 100%;
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--bt-gray-600);
+}
+
+/* --------------------- Flat, alternating-band sections --------------------- */
+/* "Become a Supplier" tab content, matching the WM reference: no boxed
+   card, big bold heading, plain paragraphs with bold-green inline links,
+   and full-bleed alternating white/page-tint bands between sections. */
+
+.sp-flat-section + .sp-flat-section {
+  margin-top: 40px;
+}
+
+.sp-flat-heading {
+  margin: 0 0 16px;
+  font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: 800;
+  color: var(--bt-purple-dark);
+  letter-spacing: -0.01em;
+}
+
+/* "Quick Intro and Benefits" — bordered photo + plain sub-headings, per the
+   CSP reference. */
+/* The heading sits above this grid (full width), so the grid row itself
+   spans exactly "Why Coupa?" through "Quick Intro" — the image frame below
+   stretches (align-items default: stretch) to match that same span. */
+.sp-quick-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 380px) 1fr;
+  gap: 40px;
+}
+
+/* Framed-photo look: black border with a thin white matting gap all around
+   the photo, so both the border and the image stay clearly visible instead
+   of the photo covering the frame edge-to-edge. The frame is inset a bit
+   from the top and bottom of the row (so it reads shorter than the full row
+   height) and centers vertically in that space. */
+.sp-quick-intro-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  height: calc(100% - 48px);
+  border: 1px solid #000000;
+  padding: 12px;
+  background: #ffffff;
+}
+
+.sp-quick-intro-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sp-plain-subheading {
+  margin: 24px 0 8px;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--bt-gray-600);
+}
+
+.sp-plain-subheading:first-child {
+  margin-top: 0;
+}
+
+.sp-plain-link {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* "How To Register" — bold heading with a dark rule beneath. Same weight +
+   color as every other heading on the site (.sp-flat-heading, .sp-card-title,
+   .sp-faq-heading, etc.) so it doesn't read as a different typeface. */
+.sp-register-heading {
+  margin: 0 0 20px;
+  padding-bottom: 10px;
+  font-size: clamp(22px, 2.4vw, 26px);
+  font-weight: 700;
+  color: var(--bt-purple-dark);
+  letter-spacing: -0.01em;
+  border-bottom: 2px solid var(--bt-gray-900);
+}
+
+.sp-register-section + .sp-register-section {
+  margin-top: 32px;
+}
+
+/* Anchor-scroll offset (and the TOC's IntersectionObserver margin) below
+   the sticky .sp-tabnav bar — shared by every section a "Table of Content"
+   card can link to. */
+.sp-register-section,
+.sp-faq-group,
+.sp-doc-accordion {
+  scroll-margin-top: 96px;
+}
+
+/* Content column + sticky "Table of Content" side card — reused by "How To
+   Register" and "FAQs & Coupa Guides". */
+.sp-toc-layout {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 40px;
+  align-items: start;
+}
+
+/* Same flex/gap rhythm as .sp-tabpanel, so nesting content inside the TOC
+   layout doesn't change its own internal spacing. */
+.sp-toc-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sp-toc-card {
+  position: sticky;
+  top: 96px;
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
+  padding: 24px 22px;
+}
+
+.sp-toc-card-title {
+  margin: 0 0 14px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--bt-gray-900);
+}
+
+.sp-toc-card-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Dot marker (not a sliding border line) in front of each entry — gray by
+   default, pink + filled-in-bold text once that section is active. */
+.sp-toc-card-link {
+  position: relative;
+  display: block;
+  padding: 8px 0 8px 20px;
+  font-size: 14.5px;
+  color: var(--bt-gray-400);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.sp-toc-card-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--bt-border);
+  transform: translateY(-50%);
+  transition: background-color 0.15s ease;
+}
+
+.sp-toc-card-link:hover {
+  color: var(--bt-gray-600);
+}
+
+.sp-toc-card-link.is-active {
+  color: var(--bt-gray-900);
+  font-weight: 700;
+}
+
+.sp-toc-card-link.is-active::before {
+  background: var(--bt-purple-dark);
+}
+
+/* Wider text boundary than the default 68ch reading-width so a short
+   paragraph (e.g. How Do We Do Business) wraps across ~3 lines instead of
+   staying narrow and running to 4-5. */
+.sp-flat-section .sp-text {
+  max-width: 92ch;
+}
+
+#how-we-do-business .sp-text,
+#supplier-registration .sp-text,
+#supplier-maintenance .sp-text {
+  max-width: 110ch;
+}
+
+.sp-inline-link {
+  color: var(--bt-green-dark);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.sp-inline-link:hover {
+  text-decoration: underline;
+}
+
+.sp-inline-link-btn {
+  appearance: none;
+  border: none;
+  background: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+/* ---------------------------------- Cards --------------------------------- */
+
+.sp-card {
+  background: #ffffff;
+  border: 1px solid var(--bt-border);
+  border-radius: var(--radius-lg);
+  padding: 32px clamp(20px, 4vw, 40px);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  scroll-margin-top: 96px;
+}
+
+.sp-card-sharp {
+  border-radius: 0;
+}
+
+.sp-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.sp-card-placeholder {
+  background: var(--bt-bg-soft);
+  border-style: dashed;
+}
+
+.sp-card-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.sp-card-title {
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--bt-purple-dark);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.sp-subheading {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bt-green-dark);
+  margin: 0 0 14px;
+}
+
+.sp-text {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--bt-gray-600);
+  margin: 0 0 14px;
+  max-width: 68ch;
+}
+
+.sp-text:last-child {
+  margin-bottom: 0;
+}
+
+.sp-text-muted {
+  font-style: italic;
+  color: var(--bt-gray-900);
+}
+
+/* Links inside a muted note (e.g. the Supplier Maintenance footer) blend
+   into the muted gray text instead of popping in the usual bold green —
+   underlined so they still read as clickable. */
+.sp-text-muted .sp-inline-link,
+.sp-text-muted .sp-inline-link-btn {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: underline;
+}
+
+/* --------------------------------- Chips ---------------------------------- */
+
+.sp-chip {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 8px 18px -8px rgba(46, 27, 68, 0.4);
+}
+
+.sp-chip-sm {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+}
+
+.sp-chip-green {
+  background: linear-gradient(135deg, var(--bt-green), var(--bt-green-dark));
+}
+
+.sp-chip-purple {
+  background: linear-gradient(135deg, var(--bt-purple), var(--bt-purple-dark));
+}
+
+.sp-chip-teal {
+  background: linear-gradient(135deg, var(--bt-teal), var(--bt-teal-dark));
+}
+
+/* -------------------------------- Checklist ------------------------------- */
+
+.sp-checklist {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sp-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--bt-gray-600);
+  padding: 9px 10px;
+  border-radius: 12px;
+  transition: background 0.15s ease;
+}
+
+.sp-checklist li:hover {
+  background: var(--bt-bg-soft);
+}
+
+/* Plain bulleted variant — no icon badge, just a normal dot, matching the
+   WM reference for Supplier Maintenance. */
+.sp-checklist-dots {
+  padding-left: 22px;
+  gap: 0;
+}
+
+.sp-checklist-dots li {
+  display: list-item;
+  list-style: disc;
+  padding: 1px 0;
+  border-radius: 0;
+}
+
+.sp-checklist-dots li:hover {
+  background: transparent;
+}
+
+/* "Account Creation" numbered steps — plain <ol>, generous gap since some
+   steps carry a screenshot underneath their text. */
+.sp-account-steps {
+  margin: 4px 0 0;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sp-account-steps .sp-text {
+  margin-bottom: 0;
+}
+
+/* A step can carry one or several screenshots side by side (e.g. the
+   verification-code screen + the email it came from). */
+.sp-step-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+/* Step screenshots size to their own natural aspect ratio (capped by a
+   max-width so the row still reads as consistently sized) — no fixed
+   height/white fill behind them, no border-radius, just the image itself
+   with a shadow. Only the still-missing placeholders need an explicit box,
+   since they have no image to size from. A lone image gets the full
+   720px cap; siblings in a multi-image step share the row instead. */
+.sp-step-image,
+.sp-step-image-placeholder {
+  flex: 1 1 260px;
+  max-width: 340px;
+}
+
+.sp-step-image:only-child,
+.sp-step-image-placeholder:only-child {
+  max-width: 720px;
+}
+
+.sp-step-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-shadow: var(--shadow-card);
+}
+
+.sp-step-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px dashed var(--bt-border);
+  background: var(--bt-bg-soft);
+  color: var(--bt-gray-400);
+  font-size: 13px;
+  font-style: italic;
+}
+
+.sp-check-badge {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(96, 188, 20, 0.14);
+  color: var(--bt-green-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+.sp-check-badge-purple {
+  background: rgba(94, 46, 155, 0.14);
+  color: var(--bt-purple);
+}
+
+.sp-two-col {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 32px;
+  margin-bottom: 20px;
+}
+
+/* --------------------------------- Buttons -------------------------------- */
+
+.sp-link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.sp-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--bt-purple);
+  text-decoration: none;
+  border: 1.5px solid var(--bt-purple);
+  border-radius: var(--radius-pill);
+  padding: 10px 18px 10px 20px;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.sp-link-btn svg {
+  transition: transform 0.15s ease;
+}
+
+.sp-link-btn:hover {
+  background: var(--bt-purple);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.sp-link-btn:hover svg {
+  transform: translateX(2px);
+}
+
+.sp-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--bt-green), var(--bt-green-dark));
+  border-radius: var(--radius-pill);
+  padding: 13px 22px 13px 26px;
+  box-shadow: 0 12px 24px -10px rgba(96, 188, 20, 0.55);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sp-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px -8px rgba(96, 188, 20, 0.6);
+}
+
+/* --------------------------------- Sub tabs ------------------------------- */
+
+/* Classic bordered tab strip (per reference) — flush adjacent tabs, active
+   one gets a top accent bar + bold dark text, inactive ones read as links. */
+.sp-subtabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 20px;
+  border-bottom: 3px solid var(--bt-purple-dark);
+}
+
+.sp-pill {
+  appearance: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 0;
+  padding: 14px 22px;
+  margin-left: -1px;
+  border: 1px solid var(--bt-border);
+  border-left-color: var(--bt-gray-400);
+  border-right-color: var(--bt-gray-400);
+  border-top: 3px solid transparent;
+  background: #ffffff;
+  color: var(--bt-purple);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.sp-pill:first-child {
+  margin-left: 0;
+}
+
+.sp-pill:hover {
+  color: var(--bt-purple-dark);
+}
+
+.sp-pill.is-active {
+  border-top-color: var(--bt-purple-dark);
+  border-bottom-color: var(--bt-border);
+  color: var(--bt-gray-900);
+  font-weight: 700;
+}
+
+/* ------------------------------- Info / tags ------------------------------ */
+
+.sp-info-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.sp-tag {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--bt-green-dark);
+  background: rgba(96, 188, 20, 0.12);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+}
+
+.sp-tag-purple {
+  color: var(--bt-purple);
+  background: rgba(94, 46, 155, 0.12);
+  margin-right: 10px;
+}
+
+.sp-definition-box {
+  margin-top: 20px;
+  padding: 22px 24px;
+  background: var(--bt-bg-soft-2);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--bt-border);
+}
+
+.sp-definition-box .sp-text {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+/* ------------------------- Useful Documents accordion ---------------------- */
+/* Standalone accordion (no .sp-card wrapper) — the heading row is the
+   expand/collapse trigger, matching the reference: title + thin bottom
+   border + a plain +/- mark, opening onto a 3-up document grid. */
+
+.sp-doc-accordion {
+  /* .sp-tabpanel already gives a 24px gap above this — add extra so the
+     "Useful Documents" heading sits well clear of the promo text above. */
+  margin-top: 72px;
+  padding: 4px 0 8px;
+}
+
+.sp-doc-accordion-trigger {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--bt-border);
+  padding: 0 0 20px;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
+
+/* Firefox adds a hidden inner border/padding on buttons that other browsers
+   don't — without this reset the trigger (and its heading) sit a couple of
+   px right of every other flush-left element on the page in Firefox only. */
+.sp-doc-accordion-trigger::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+.sp-doc-accordion-title {
+  margin: 0;
+  font-size: clamp(34px, 4.2vw, 48px);
+  font-weight: 800;
+  color: var(--bt-purple-dark);
+  letter-spacing: -0.01em;
+}
+
+.sp-doc-toggle {
+  position: relative;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+}
+
+.sp-doc-toggle::before,
+.sp-doc-toggle::after {
+  content: '';
+  position: absolute;
+  background: var(--bt-green);
+  border-radius: 2px;
+}
+
+.sp-doc-toggle::before {
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 3px;
+  transform: translateY(-50%);
+}
+
+.sp-doc-toggle::after {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  transform: translateX(-50%);
+  transition: transform 0.2s ease;
+}
+
+.sp-doc-accordion.is-open .sp-doc-toggle::after {
+  transform: translateX(-50%) scaleY(0);
+}
+
+.sp-doc-accordion-body {
+  padding-top: 24px;
+}
+
+.sp-doc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.sp-doc-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+  min-height: 304px;
+  text-decoration: none;
+  color: inherit;
+  background: #ffffff;
+  border-radius: 0;
+  padding: 28px 30px;
+  box-shadow: var(--shadow-card);
+}
+
+.sp-doc-card h4 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--bt-gray-900);
+}
+
+.sp-doc-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--bt-green);
+}
+
+.sp-doc-download-all-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.sp-btn-download-all {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bt-green), var(--bt-green-dark));
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14.5px;
+  font-weight: 700;
+  padding: 14px 34px;
+  border-radius: var(--radius-pill);
+}
+
+/* -------------------------------- Accordion ------------------------------- */
+
+.sp-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sp-accordion-item {
+  border: 1px solid var(--bt-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bt-bg-soft);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.sp-accordion-item.is-open {
+  border-color: var(--bt-green);
+  background: #ffffff;
+}
+
+.sp-accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  appearance: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--bt-purple-dark);
+  padding: 18px 22px;
+}
+
+.sp-accordion-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(96, 188, 20, 0.12);
+  color: var(--bt-green-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.sp-accordion-item.is-open .sp-accordion-icon {
+  transform: rotate(180deg);
+  background: var(--bt-green);
+  color: #ffffff;
+}
+
+.sp-accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.28s ease;
+}
+
+.sp-accordion-item.is-open .sp-accordion-panel {
+  grid-template-rows: 1fr;
+}
+
+.sp-accordion-panel-inner {
+  overflow: hidden;
+}
+
+.sp-accordion-body {
+  padding: 0 22px 20px;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--bt-gray-600);
+  max-width: 68ch;
+}
+
+/* Flat variant for the Useful Documents accordion — no boxed card, just the
+   trigger's own bottom border (set in .sp-doc-accordion-trigger above). */
+.sp-doc-accordion.sp-accordion-item,
+.sp-doc-accordion.sp-accordion-item.is-open {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+/* Any +/- toggle mark (reused from the doc accordion) flips to a minus once
+   its enclosing accordion item is open — works for both that accordion and
+   the flat FAQ rows below. */
+.sp-accordion-item.is-open .sp-doc-toggle::after {
+  transform: translateX(-50%) scaleY(0);
+}
+
+/* -------------------------------- FAQ (flat) ------------------------------- */
+/* Flat divider-list style, matching the reference: bold heading, then each
+   question as a plain row with a bottom-border divider and a +/- mark —
+   no boxed card, no icon chip, no circular chevron badge. */
+
+.sp-faq-group + .sp-faq-group {
+  margin-top: 40px;
+}
+
+.sp-faq-heading {
+  margin: 0 0 8px;
+  font-size: clamp(34px, 4.2vw, 48px);
+  font-weight: 800;
+  color: var(--bt-purple-dark);
+  letter-spacing: -0.01em;
+}
+
+.sp-accordion-item-flat,
+.sp-accordion-item-flat.is-open {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  border-bottom: 1px solid var(--bt-border);
+}
+
+.sp-accordion-item-flat .sp-accordion-trigger {
+  padding: 20px 0;
+  font-size: 21px;
+  font-weight: 500;
+  color: var(--bt-gray-900);
+}
+
+.sp-accordion-item-flat.is-open .sp-accordion-trigger {
+  color: var(--bt-purple-dark);
+  font-weight: 700;
+}
+
+.sp-accordion-item-flat .sp-accordion-body {
+  padding: 0 0 20px;
+  font-size: 18px;
+  max-width: none;
+}
+
+.sp-accordion-body p {
+  margin: 0 0 12px;
+}
+
+.sp-accordion-body p:last-child {
+  margin-bottom: 0;
+}
+
+.sp-accordion-list {
+  margin: 0 0 12px;
+  padding-left: 22px;
+}
+
+.sp-accordion-list li + li {
+  margin-top: 4px;
+}
+
+.sp-accordion-link {
+  color: var(--bt-green-dark);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* -------------------------------- Contact form ---------------------------- */
+/* Field layout copied from the WM reference: 2-up grid, each single-line
+   field shows a live "n/max" counter in its top-right corner, the "What
+   type of service" field's counter sits below it instead (matching the
+   reference's own inconsistency) by riding the tall Message/Question row. */
+
+.sp-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 24px;
+}
+
+.sp-field {
+  position: relative;
+  display: block;
+}
+
+.sp-field-counter-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.sp-field-control {
+  width: 100%;
+  font-family: inherit;
+  font-size: 14.5px;
+  color: var(--bt-gray-900);
+  background: #ffffff;
+  border: 1px solid var(--bt-border);
+  border-radius: 0;
+  padding: 14px 60px 14px 16px;
+  transition: border-color 0.15s ease;
+}
+
+.sp-field-control::placeholder {
+  color: var(--bt-gray-600);
+  opacity: 1;
+}
+
+.sp-field-control:focus {
+  outline: none;
+  border-color: var(--bt-purple-dark);
+}
+
+.sp-field-textarea {
+  min-height: 140px;
+  padding-bottom: 32px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.sp-field-select {
+  appearance: none;
+  padding-right: 44px;
+  cursor: pointer;
+}
+
+.sp-field-select:invalid {
+  color: var(--bt-gray-600);
+  font-style: italic;
+}
+
+.sp-field-chevron {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--bt-gray-600);
+  pointer-events: none;
+}
+
+.sp-field-counter {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--bt-gray-400);
+  pointer-events: none;
+}
+
+.sp-field-textarea ~ .sp-field-counter {
+  top: auto;
+  bottom: 14px;
+}
+
+.sp-field-counter-static {
+  align-self: flex-end;
+  margin-top: auto;
+  padding-top: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--bt-gray-400);
+}
+
+.sp-contact-submit-row {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+}
+
+.sp-contact-submit {
+  appearance: none;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 14px 36px;
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: not-allowed;
+  background: var(--bt-gray-400);
+  color: var(--bt-gray-600);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.sp-contact-submit:not(:disabled) {
+  background: linear-gradient(135deg, var(--bt-purple), var(--bt-purple-dark));
+  color: #ffffff;
+  cursor: pointer;
+}
+
+/* Small laptop / tablet landscape — ease the container down from the
+   desktop 56px gutters before anything needs to reflow. */
+@media (max-width: 1024px) {
+  .sp-hero-inner,
+  .sp-tabnav-inner,
+  .sp-container {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .sp-doc-grid,
+  .sp-promo-grid {
+    gap: 20px;
+  }
+}
+
+/* Tablet portrait — 3-up grids drop to 2-up, and the Quick Intro photo +
+   text pairing (which gets cramped once the text column shrinks below
+   ~300px) stacks to a single column. */
+@media (max-width: 860px) {
+  .sp-doc-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sp-promo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sp-quick-intro-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* The "Table of Content" side card drops below its content column
+     instead of squeezing it, and stops being sticky since it's no longer
+     running alongside the sections it tracks. */
+  .sp-toc-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sp-toc-card {
+    position: static;
+    order: -1;
+  }
+}
+
+/* Large phone / small tablet — everything collapses to a single column. */
+@media (max-width: 640px) {
+  .sp-hero {
+    padding: 60px 0 84px;
+  }
+
+  .sp-hero-inner,
+  .sp-tabnav-inner,
+  .sp-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .sp-promo-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .sp-doc-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sp-doc-card {
+    min-height: auto;
+  }
+
+  .sp-contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sp-tab {
+    padding: 12px 16px;
+  }
+
+  .sp-card {
+    padding: 26px 20px;
+  }
+
+  .sp-card-head {
+    gap: 12px;
+  }
+
+  .sp-chip {
+    width: 40px;
+    height: 40px;
+  }
+
+  .sp-info-row {
+    flex-wrap: wrap;
+  }
+
+  /* Two screenshots side by side (e.g. the verification-code step) get too
+     small to actually read once the column this narrow — stack them full
+     width instead of shrinking the pair down. */
+  .sp-step-image,
+  .sp-step-image-placeholder {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  .sp-account-steps {
+    gap: 16px;
+  }
+
+  .sp-toc-card {
+    padding: 20px 18px;
+  }
+}
+
+/* Small phone — tighten gutters further and let action buttons take the
+   full row so they stay comfortable tap targets. */
+@media (max-width: 420px) {
+  .sp-hero {
+    padding: 48px 0 64px;
+  }
+
+  .sp-hero-inner,
+  .sp-tabnav-inner,
+  .sp-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .sp-pill {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .sp-link-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sp-link-btn,
+  .sp-btn-primary,
+  .sp-contact-submit {
+    width: 100%;
+    justify-content: center;
+  }
+}

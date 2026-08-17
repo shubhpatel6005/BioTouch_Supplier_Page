@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Suppliers | BioTouch Global (static preview — no Node required)</title>
+<link rel="stylesheet" href="./src/index.css" />
+<link rel="stylesheet" href="./src/SupplierPage.css" />
+<style>
+  /* preview-only: hide/show helpers driven by vanilla JS below */
+  [data-panel][hidden],
+  [data-subpanel][hidden] { display: none !important; }
+  .preview-banner {
+    background: #2f2a38; color: #fff;
+    font-family: inherit; font-weight: 600; font-size: 13px; line-height: 1.4;
+    text-align: center; padding: 8px 16px;
+  }
+  .preview-banner a { color: #9fe870; }
+</style>
+</head>
+<body>
+<div class="preview-banner">Static HTML/CSS preview (no Node/build step) — mirrors src/SupplierPage.jsx. Once Node.js is installed, run <code>npm install &amp;&amp; npm run dev</code> for the real React app.</div>
+
+<div class="sp-page">
+
+  <header class="sp-hero">
+    <div class="sp-hero-blob sp-hero-blob-a" aria-hidden="true"></div>
+    <div class="sp-hero-blob sp-hero-blob-b" aria-hidden="true"></div>
+    <div class="sp-hero-grid" aria-hidden="true"></div>
+    <div class="sp-hero-inner">
+      <h1 class="sp-hero-title" id="hero-title">Suppliers</h1>
+      <p class="sp-hero-sub" id="hero-sub">Our suppliers are essential to our business and the care we deliver.</p>
+      <p class="sp-hero-body" id="hero-body">
+        BioTouch uses the Coupa Operating Network to manage purchase orders, invoices and
+        supplier records. Explore the tabs below to register, learn how we pay, and find
+        answers to common questions. This content applies to suppliers in the U.S.
+      </p>
+    </div>
+  </header>
+
+  <nav class="sp-tabnav" aria-label="Supplier page sections">
+    <div class="sp-tabnav-inner">
+      <button type="button" class="sp-tab is-active" data-tab-btn="supplier">Supplier</button>
+      <button type="button" class="sp-tab" data-tab-btn="become-a-supplier">Become a Supplier</button>
+      <button type="button" class="sp-tab" data-tab-btn="csp">Coupa Supplier Portal</button>
+      <button type="button" class="sp-tab" data-tab-btn="faqs">FAQs &amp; Coupa Guides</button>
+      <button type="button" class="sp-tab" data-tab-btn="contact">Contact Us</button>
+    </div>
+  </nav>
+
+  <main class="sp-container">
+
+    <!-- ============================ Supplier tab ============================ -->
+    <div class="sp-tabpanel" data-panel="supplier">
+
+      <div class="sp-promo-grid">
+        <div class="sp-promo-card">
+          <span class="sp-promo-frame">
+            <img class="sp-promo-img" src="./public/images/supplier/how-we-do-business.jpg" alt=""
+              onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'sp-promo-placeholder',innerHTML:ICONS.handshake}))" />
+          </span>
+          <span class="sp-promo-underline" aria-hidden="true"></span>
+          <h2 class="sp-promo-heading">Relationships That Work for You</h2>
+          <p class="sp-promo-body">BioTouch provides innovative, customized, &amp; cost-effective solutions to optimize healthcare services.</p>
+        </div>
+        <div class="sp-promo-card">
+          <span class="sp-promo-frame">
+            <img class="sp-promo-img" src="./public/images/supplier/our-commitment.jpg" alt=""
+              onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'sp-promo-placeholder',innerHTML:ICONS.star}))" />
+          </span>
+          <span class="sp-promo-underline" aria-hidden="true"></span>
+          <h2 class="sp-promo-heading">Our Commitment to Customers</h2>
+          <p class="sp-promo-body">We are committed to our customers and developing partnerships with business enterprises to help build the world-class kits.</p>
+        </div>
+        <div class="sp-promo-card">
+          <span class="sp-promo-frame">
+            <img class="sp-promo-img" src="./public/images/supplier/supplier-registration.jpg" alt=""
+              onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'sp-promo-placeholder',innerHTML:ICONS.clipboard}))" />
+          </span>
+          <span class="sp-promo-underline" aria-hidden="true"></span>
+          <h2 class="sp-promo-heading">Become a BioTouch Supplier</h2>
+          <p class="sp-promo-body">Interested in joining the BioTouch supplier network? To learn more and apply, visit the <button type="button" class="sp-inline-link sp-inline-link-btn" data-goto-tab="become-a-supplier">Become a Supplier</button> and <button type="button" class="sp-inline-link sp-inline-link-btn" data-goto-tab="contact">Contact Us</button> pages.</p>
+        </div>
+      </div>
+
+      <div class="sp-accordion-item sp-doc-accordion is-open" id="doc-accordion">
+        <button type="button" class="sp-doc-accordion-trigger" id="doc-accordion-trigger" aria-expanded="true">
+          <h2 class="sp-doc-accordion-title">Useful Documents</h2>
+          <span class="sp-doc-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="sp-accordion-panel">
+          <div class="sp-accordion-panel-inner">
+            <div class="sp-doc-accordion-body">
+              <div class="sp-doc-grid" id="doc-grid"></div>
+              <div class="sp-doc-download-all-row">
+                <a class="sp-btn-download-all" href="#">Download All</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================= Become a Supplier tab ========================= -->
+    <div class="sp-tabpanel sp-tabpanel-flush" data-panel="become-a-supplier" hidden>
+
+      <section class="sp-flat-section" id="how-we-do-business">
+        <h2 class="sp-flat-heading">How Do We Do Business</h2>
+        <p class="sp-text">
+          As part of our standard business practices, BioTouch has automated our Procure-to-Pay Process
+          to improve operational efficiency and cost effectiveness. We are now using the Coupa Operating
+          Network to manage purchase orders and receive invoices from suppliers. By implementing this
+          tool, we have streamlined our work processes and payments to suppliers within contract terms.
+        </p>
+      </section>
+
+      <section class="sp-flat-section" id="supplier-registration">
+        <h2 class="sp-flat-heading">Supplier Registration</h2>
+        <p class="sp-text">
+          We invite all suppliers to register through Coupa, our Supplier Onboarding Portal. Suppliers
+          are not required to register with Coupa to participate in RFI and RFP processes.
+        </p>
+        <p class="sp-text">
+          If a supplier is not registered, the supplier will be invited to become a Supplier for
+          BioTouch. See the <button type="button" class="sp-inline-link sp-inline-link-btn" data-goto-tab="faqs">FAQs &amp; Coupa Guides</button> and
+          <button type="button" class="sp-inline-link sp-inline-link-btn" data-goto-tab="csp">Coupa Supplier Portal</button> pages for onboarding
+          processes and answers to general onboarding questions. Note, incomplete or inaccurate
+          information will result in a delay in supplier registration.
+        </p>
+        <p class="sp-text">
+          If you have any questions or technical issues about registering on the Coupa network, please
+          contact Coupa directly or visit
+          <a class="sp-inline-link" href="https://compass.coupa.com/en-us/products/product-documentation/supplier-resources/for-suppliers" target="_blank" rel="noreferrer">the Coupa Success Portal for Suppliers</a>.
+        </p>
+        <p class="sp-text">
+          For help with the registration process,
+          <a class="sp-inline-link" href="#">click here to view our onboarding video</a>.
+        </p>
+        <p class="sp-text">
+          If you are a current supplier and are required to deliver goods and services via a purchase
+          order, there are <a class="sp-inline-link" href="#">the terms and conditions</a> that apply.
+        </p>
+      </section>
+
+      <section class="sp-flat-section" id="supplier-maintenance">
+        <h2 class="sp-flat-heading">Supplier Maintenance</h2>
+        <p class="sp-text">If you are a current supplier, it is your responsibility to keep BioTouch informed of any changes to the following:</p>
+        <ul class="sp-checklist sp-checklist-dots" id="maintenance-checklist"></ul>
+        <p class="sp-text sp-text-muted">
+          You can initiate these changes via <a class="sp-inline-link" href="https://supplier.coupahost.com/sessions/new" target="_blank" rel="noreferrer">the Coupa Supplier Portal</a>.
+          If you do not have a Coupa Supplier Portal account, see the
+          <a class="sp-inline-link" href="https://compass.coupa.com/en-us/products/product-documentation/supplier-resources/for-suppliers/core-supplier-onboarding" target="_blank" rel="noreferrer">Coupa Onboarding Guide</a> to create one.
+        </p>
+      </section>
+    </div>
+
+    <!-- =============================== CSP tab =============================== -->
+    <div class="sp-tabpanel" data-panel="csp" hidden>
+      <div class="sp-subtabs">
+        <button type="button" class="sp-pill is-active" data-subtab-btn="Overview">Overview</button>
+        <button type="button" class="sp-pill" data-subtab-btn="How To Register">How To Register</button>
+        <button type="button" class="sp-pill" data-subtab-btn="First Time Users">First Time Users</button>
+        <button type="button" class="sp-pill" data-subtab-btn="Account Creation">Account Creation</button>
+      </div>
+
+      <div data-subpanel="Overview">
+        <section class="sp-flat-section">
+          <h2 class="sp-register-heading">Coupa Supplier Portal (CSP)</h2>
+          <p class="sp-text">
+            Welcome to the Coupa Supplier Portal (CSP), our secure and integrated platform designed to
+            facilitate efficient collaboration between our organization and our valued suppliers. The
+            portal enables streamlined management of procurement transactions, improves transparency, and
+            ensures timely processing of orders and payments. Through CSP, suppliers can access real-time
+            information, submit documents electronically, and maintain accurate company records within a
+            centralized system.
+          </p>
+        </section>
+        <section class="sp-flat-section">
+          <div class="sp-quick-intro-grid">
+            <span class="sp-quick-intro-frame">
+              <img class="sp-quick-intro-img" src="./public/images/supplier/quick-intro.png" alt="" />
+            </span>
+            <div>
+              <h2 class="sp-register-heading">Quick Intro and Benefits</h2>
+
+              <div class="sp-quick-intro-boundary">
+                <h3 class="sp-plain-subheading">Why Coupa?</h3>
+                <ul class="sp-checklist sp-checklist-dots" id="why-coupa-list"></ul>
+
+                <h3 class="sp-plain-subheading">Benefits of using Coupa</h3>
+                <ul class="sp-checklist sp-checklist-dots" id="benefits-list"></ul>
+
+                <h3 class="sp-plain-subheading">Quick Intro</h3>
+                <ul class="sp-checklist sp-checklist-dots">
+                  <li>Review the <a class="sp-plain-link" href="https://compass.coupa.com/en-us/products/product-documentation/supplier-resources/for-suppliers#Intro" target="_blank" rel="noreferrer">Quick Intro</a> if you are new to Coupa.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div data-subpanel="How To Register" hidden>
+        <div class="sp-toc-layout">
+          <div class="sp-toc-content">
+            <section class="sp-register-section" id="who-can-register">
+              <h2 class="sp-register-heading">Who can Register?</h2>
+              <p class="sp-text"><strong>Method</strong>: By BioTouch Invitation</p>
+              <p class="sp-text">Only suppliers who receive a direct invitation from BioTouch can register for the Coupa Supplier Portal.</p>
+              <p class="sp-text"><strong>Recipient:</strong> Primary Contact</p>
+              <p class="sp-text">Definition: Supplier's assigned primary point of contact, responsible for receiving BioTouch communications. One primary contact per supplier account</p>
+            </section>
+
+            <section class="sp-register-section" id="where-do-i-register">
+              <h2 class="sp-register-heading">Where Do I Register?</h2>
+              <p class="sp-text">As a BioTouch Supplier, your confirmed primary contact will receive an email invite to join the Coupa Supplier Portal (CSP)</p>
+              <p class="sp-text">Once the primary contact accepts the invitation, he/she will be able to</p>
+              <ul class="sp-checklist sp-checklist-dots">
+                <li>Access the Coupa Supplier Portal</li>
+                <li>Add multiple users and set-up login preferences</li>
+                <li>Enable user notifications</li>
+                <li>Automatically connected to BioTouch for e-routed transactions</li>
+              </ul>
+            </section>
+
+            <section class="sp-register-section" id="considerations">
+              <h2 class="sp-register-heading">Considerations</h2>
+              <p class="sp-text">You have to wait for BioTouch to send the invitation email. If you are the confirmed primary contact, and cannot find the invite, contact BioTouch for support.</p>
+            </section>
+
+            <section class="sp-register-section" id="requesting-an-invitation">
+              <h2 class="sp-register-heading">Requesting an Invitation</h2>
+              <p class="sp-text">You can request an invitation to join the Coupa Supplier Portal. Reach out to BioTouch by using the support form: <a class="sp-plain-link" href="#" target="_blank" rel="noreferrer">https://biotouch.coupa.supplier-support.form</a></p>
+            </section>
+          </div>
+
+          <aside class="sp-toc-card">
+            <h3 class="sp-toc-card-title">Table of Content</h3>
+            <ul class="sp-toc-card-list">
+              <li><a class="sp-toc-card-link" href="#who-can-register" data-toc-target="who-can-register">Who can Register?</a></li>
+              <li><a class="sp-toc-card-link" href="#where-do-i-register" data-toc-target="where-do-i-register">Where Do I Register?</a></li>
+              <li><a class="sp-toc-card-link" href="#considerations" data-toc-target="considerations">Considerations</a></li>
+              <li><a class="sp-toc-card-link" href="#requesting-an-invitation" data-toc-target="requesting-an-invitation">Requesting an Invitation</a></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+      <div data-subpanel="First Time Users" hidden>
+        <section class="sp-flat-section">
+          <h2 class="sp-register-heading">CSP Supplier Checklist - New Users</h2>
+          <p class="sp-text">Use this checklist to get started with CSP</p>
+
+          <ul class="sp-checklist sp-checklist-dots" id="first-time-checklist"></ul>
+        </section>
+      </div>
+
+      <div data-subpanel="Account Creation" hidden>
+        <div class="sp-toc-layout">
+          <div class="sp-toc-content">
+            <section class="sp-register-section" id="first-time-registration">
+              <h2 class="sp-register-heading">First Time Registration</h2>
+              <p class="sp-text">If this is your first time registering, you will receive an email from do_not_reply@biotouchglobal.coupahost.com. You must click on the link at the bottom of the email to begin the registration process.</p>
+              <p class="sp-text">To begin the registration process:</p>
+              <ol class="sp-account-steps">
+                <li>
+                  <p class="sp-text">Click on Join and Respond to create an account for the CSP.</p>
+                  <div class="sp-step-images">
+                    <img class="sp-step-image" src="./public/images/supplier/account-creation-step-1.png" alt=""
+                      onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'sp-step-image-placeholder',textContent:'Screenshot coming soon'}))" />
+                  </div>
+                </li>
+                <li>
+                  <p class="sp-text">Create your account in CSP by entering the information required below. Click "I accept the Privacy Policy and Terms of Use." Once you click &lsquo;Create an Account&rsquo; you will be sent a Verification code.</p>
+                  <div class="sp-step-images">
+                    <img class="sp-step-image" src="./public/images/supplier/account-creation-step-2.png" alt=""
+                      onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'sp-step-image-placeholder',textContent:'Screenshot coming soon'}))" />
+                  </div>
+                </li>
+                <li>
+                  <p class="sp-text">Enter the Email Verification Code that was sent to your email address and click Next to finish setting up your profile.</p>
+                  <div class="sp-step-images">
+                    <img class="sp-step-image" src="./public/images/supplier/account-creation-step-3a.png" alt=""
+                      onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'sp-step-image-placeholder',textContent:'Screenshot coming soon'}))" />
+                    <img class="sp-step-image" src="./public/images/supplier/account-creation-step-3b.jpg" alt=""
+                      onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'sp-step-image-placeholder',textContent:'Screenshot coming soon'}))" />
+                  </div>
+                </li>
+              </ol>
+            </section>
+
+            <section class="sp-register-section" id="adding-users-to-csp-portal">
+              <h2 class="sp-register-heading">Adding Users to CSP Portal</h2>
+              <p class="sp-text">To add your colleagues to the Coupa Supplier Portal, please follow the steps listed below:</p>
+              <ol class="sp-account-steps">
+                <li>
+                  <p class="sp-text">Click the Setup button on the CSP home page.</p>
+                  <div class="sp-step-images">
+                    <img class="sp-step-image" src="./public/images/supplier/account-creation-adding-users-step-1.png" alt=""
+                      onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'sp-step-image-placeholder',textContent:'Screenshot coming soon'}))" />
+                  </div>
+                </li>
+                <li>
+                  <p class="sp-text">Select the Users option from the menu bar.</p>
+                  <div class="sp-step-images">
+                    <img class="sp-step-image" src="./public/images/supplier/account-creation-adding-users-step-2.png" alt=""
+                      onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'sp-step-image-placeholder',textContent:'Screenshot coming soon'}))" />
+                  </div>
+                </li>
+                <li>
+                  <p class="sp-text">Click Invite User.</p>
+                  <div class="sp-step-images">
+                    <img class="sp-step-image" src="./public/images/supplier/account-creation-adding-users-step-3.png" alt=""
+                      onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'sp-step-image-placeholder',textContent:'Screenshot coming soon'}))" />
+                  </div>
+                </li>
+                <li><p class="sp-text">Enter your colleagues&rsquo; contact information.</p></li>
+                <li><p class="sp-text">Select/deselect their permissions.</p></li>
+                <li><p class="sp-text">Send invitation.</p></li>
+              </ol>
+            </section>
+
+            <section class="sp-register-section" id="purchase-orders">
+              <h2 class="sp-register-heading">Purchase Orders</h2>
+              <p class="sp-text">This is where you will find your BioTouch Purchase Orders and create invoices directly from the portal.</p>
+              <p class="sp-text">Please click on <a class="sp-plain-link" href="https://compass.coupa.com/en-us/products/product-documentation/supplier-resources/for-suppliers/coupa-supplier-portal/set-up-the-csp/purchase-orders" target="_blank" rel="noreferrer">this link</a> to access the video tutorial for managing your Purchase Orders.</p>
+              <div class="sp-step-images">
+                <img class="sp-step-image" src="./public/images/supplier/account-creation-purchase-orders.png" alt=""
+                  onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'sp-step-image-placeholder',textContent:'Screenshot coming soon'}))" />
+              </div>
+            </section>
+
+            <section class="sp-register-section" id="invoice-creation">
+              <h2 class="sp-register-heading">Invoice Creation</h2>
+              <p class="sp-text">This is where you will be able to create, edit and manage your invoices for BioTouch.</p>
+              <p class="sp-text">Please click on <a class="sp-plain-link" href="https://compass.coupa.com/en-us/products/product-documentation/supplier-resources/for-suppliers/coupa-supplier-portal/set-up-the-csp/invoices/invoices-faq" target="_blank" rel="noreferrer">this link</a> to access the video tutorials for managing your invoices.</p>
+              <div class="sp-step-images">
+                <img class="sp-step-image" src="./public/images/supplier/account-creation-invoice-creation.png" alt=""
+                  onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'sp-step-image-placeholder',textContent:'Screenshot coming soon'}))" />
+              </div>
+            </section>
+          </div>
+
+          <aside class="sp-toc-card">
+            <h3 class="sp-toc-card-title">Table of Content</h3>
+            <ul class="sp-toc-card-list">
+              <li><a class="sp-toc-card-link" href="#first-time-registration" data-toc-target="first-time-registration">First Time Registration</a></li>
+              <li><a class="sp-toc-card-link" href="#adding-users-to-csp-portal" data-toc-target="adding-users-to-csp-portal">Adding Users to CSP Portal</a></li>
+              <li><a class="sp-toc-card-link" href="#purchase-orders" data-toc-target="purchase-orders">Purchase Orders</a></li>
+              <li><a class="sp-toc-card-link" href="#invoice-creation" data-toc-target="invoice-creation">Invoice Creation</a></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- =============================== FAQ tab ================================ -->
+    <div class="sp-tabpanel" data-panel="faqs" hidden>
+      <div class="sp-toc-layout">
+        <div class="sp-toc-content">
+          <section class="sp-faq-group" id="coupa-at-biotouch">
+            <h2 class="sp-faq-heading">Coupa at BioTouch</h2>
+            <div class="sp-accordion" id="faq-group-1"></div>
+          </section>
+          <section class="sp-faq-group" id="invoicing">
+            <h2 class="sp-faq-heading">Invoicing</h2>
+            <div class="sp-accordion" id="faq-group-2"></div>
+          </section>
+          <section class="sp-faq-group" id="orders">
+            <h2 class="sp-faq-heading">Orders</h2>
+            <div class="sp-accordion" id="faq-group-orders"></div>
+          </section>
+          <section class="sp-faq-group" id="technical-support-and-help">
+            <h2 class="sp-faq-heading">Technical Support and Help</h2>
+            <div class="sp-accordion" id="faq-group-3"></div>
+          </section>
+
+          <div class="sp-accordion-item sp-doc-accordion is-open" id="guides-accordion">
+            <button type="button" class="sp-doc-accordion-trigger" id="guides-accordion-trigger" aria-expanded="true">
+              <h2 class="sp-doc-accordion-title">Supplier Guides</h2>
+              <span class="sp-doc-toggle" aria-hidden="true"></span>
+            </button>
+            <div class="sp-accordion-panel">
+              <div class="sp-accordion-panel-inner">
+                <div class="sp-doc-accordion-body">
+                  <div class="sp-doc-grid" id="guides-grid"></div>
+                  <div class="sp-doc-download-all-row">
+                    <a class="sp-btn-download-all" href="#">Download All</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="sp-toc-card">
+          <h3 class="sp-toc-card-title">Table of Content</h3>
+          <ul class="sp-toc-card-list">
+            <li><a class="sp-toc-card-link" href="#coupa-at-biotouch" data-toc-target="coupa-at-biotouch">Coupa at BioTouch</a></li>
+            <li><a class="sp-toc-card-link" href="#invoicing" data-toc-target="invoicing">Invoicing</a></li>
+            <li><a class="sp-toc-card-link" href="#orders" data-toc-target="orders">Orders</a></li>
+            <li><a class="sp-toc-card-link" href="#technical-support-and-help" data-toc-target="technical-support-and-help">Technical Support and Help</a></li>
+            <li><a class="sp-toc-card-link" href="#guides-accordion" data-toc-target="guides-accordion">Supplier Guides</a></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+
+    <!-- ============================= Contact Us tab ============================ -->
+    <div class="sp-tabpanel" data-panel="contact" hidden>
+      <section class="sp-card sp-card-sharp">
+        <form class="sp-contact-grid" id="contact-form" novalidate>
+          <label class="sp-field">
+            <input class="sp-field-control" name="firstName" placeholder="First Name" maxlength="150" />
+            <span class="sp-field-counter">0/150</span>
+          </label>
+          <label class="sp-field">
+            <input class="sp-field-control" name="lastName" placeholder="Last Name" maxlength="150" />
+            <span class="sp-field-counter">0/150</span>
+          </label>
+          <label class="sp-field">
+            <input class="sp-field-control" type="email" name="email" placeholder="Email" maxlength="150" />
+            <span class="sp-field-counter">0/150</span>
+          </label>
+          <label class="sp-field">
+            <input class="sp-field-control" type="tel" name="phone" placeholder="Phone" maxlength="150" />
+            <span class="sp-field-counter">0/150</span>
+          </label>
+          <label class="sp-field">
+            <input class="sp-field-control" name="companyName" placeholder="Company Name" maxlength="150" />
+            <span class="sp-field-counter">0/150</span>
+          </label>
+          <label class="sp-field">
+            <select class="sp-field-control sp-field-select" name="locationCountry" required>
+              <option value="" disabled hidden selected>BioTouch Location Country</option>
+              <option>United States</option>
+            </select>
+            <span class="sp-field-chevron"></span>
+          </label>
+          <label class="sp-field">
+            <input class="sp-field-control" name="locationProvince" placeholder="BioTouch Location Province/Territory" maxlength="150" />
+            <span class="sp-field-counter">0/150</span>
+          </label>
+          <label class="sp-field">
+            <select class="sp-field-control sp-field-select" name="category" required>
+              <option value="" disabled hidden selected>Category</option>
+              <option>General Inquiry</option>
+              <option>Supplier Registration</option>
+              <option>Invoicing &amp; Payments</option>
+              <option>Technical Support</option>
+              <option>Other</option>
+            </select>
+            <span class="sp-field-chevron"></span>
+          </label>
+          <label class="sp-field sp-field-counter-layout">
+            <input class="sp-field-control" name="serviceType" placeholder="What type of service do you provide?" maxlength="150" />
+            <span class="sp-field-counter-static">0/150</span>
+          </label>
+          <label class="sp-field">
+            <textarea class="sp-field-control sp-field-textarea" name="message" placeholder="Message / Question" maxlength="500" rows="5"></textarea>
+            <span class="sp-field-counter">0/500</span>
+          </label>
+          <div class="sp-contact-submit-row">
+            <button type="submit" class="sp-contact-submit" id="contact-submit" disabled>Submit</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+  </main>
+</div>
+
+<script>
+/* ---- inline SVG icon set — copied 1:1 from src/icons.jsx ---- */
+const ICONS = {
+  check: '<svg viewBox="0 0 20 20" fill="none" width="14" height="14"><path d="M4 10.2l3.2 3.2L16 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  chevron: '<svg viewBox="0 0 20 20" fill="none" width="16" height="16" class="sp-accordion-chevron"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  arrow: '<svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  handshake: '<svg viewBox="0 0 48 48" fill="none" width="24" height="24"><path d="M6 20l8-8 9 5 5-3 8 6-6 8-3-2-6 8-11-7-4-7z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M18 27l6 4M24 22l6 4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
+  clipboard: '<svg viewBox="0 0 48 48" fill="none" width="24" height="24"><rect x="12" y="8" width="24" height="34" rx="4" stroke="currentColor" stroke-width="2.4"/><rect x="18" y="5" width="12" height="6" rx="2" stroke="currentColor" stroke-width="2.4"/><path d="M17 20h14M17 27h14M17 34h9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
+  shield: '<svg viewBox="0 0 48 48" fill="none" width="24" height="24"><path d="M24 5l16 6v11c0 11-7 17.5-16 21-9-3.5-16-10-16-21V11l16-6z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M17 23l5 5 9-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  portal: '<svg viewBox="0 0 48 48" fill="none" width="24" height="24"><rect x="6" y="9" width="36" height="30" rx="5" stroke="currentColor" stroke-width="2.4"/><path d="M6 17h36" stroke="currentColor" stroke-width="2.4"/><circle cx="12" cy="13" r="1.6" fill="currentColor"/><circle cx="17" cy="13" r="1.6" fill="currentColor"/><path d="M14 27l6-6 5 5 8-8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  star: '<svg viewBox="0 0 48 48" fill="none" width="24" height="24"><path d="M24 6l5.4 11.2L42 19l-9 8.8L35.2 40 24 33.8 12.8 40 15 27.8 6 19l12.6-1.8L24 6z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/></svg>',
+  usercheck: '<svg viewBox="0 0 48 48" fill="none" width="24" height="24"><circle cx="19" cy="16" r="8" stroke="currentColor" stroke-width="2.4"/><path d="M6 42c0-9 6-14.5 13-14.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M30 33l5 5 9-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  help: '<svg viewBox="0 0 48 48" fill="none" width="24" height="24"><circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2.4"/><path d="M18.5 18a5.5 5.5 0 1 1 8.4 4.7c-1.9 1.2-2.9 2.1-2.9 4.3" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="33.5" r="1.8" fill="currentColor"/></svg>',
+  invoice: '<svg viewBox="0 0 48 48" fill="none" width="24" height="24"><path d="M13 6h17l7 7v29a2 2 0 01-2 2H13a2 2 0 01-2-2V8a2 2 0 012-2z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M30 6v7h7" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M16 24h16M16 30h16M16 36h9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
+  docdl: '<svg viewBox="0 0 24 24" fill="none" width="19" height="19"><path d="M12 4v10m0 0l-3.5-3.5M12 14l3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 16v2a2 2 0 002 2h10a2 2 0 002-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+};
+
+document.getElementById('icon-usercheck').innerHTML = ICONS.usercheck;
+document.getElementById('icon-clipboard-2').innerHTML = ICONS.clipboard;
+document.querySelectorAll('.sp-field-chevron').forEach((el) => (el.innerHTML = ICONS.chevron));
+
+/* ---- checklist / list data (mirrors src/supplierContent.js) ---- */
+const maintenanceItems = [
+  ['Certificate of Insurance (COI)', 'If you are performing any service on a BioTouch site, ensure that your COI is up to date.'],
+  ['Address Information', "Ensure that your addresses are up to date, both your company's ordering and remittance address."],
+  ['Email Address Information', "Ensure that your company's email address is up to date for receiving purchase orders."],
+  ['Company Bank Account', "Ensure that your company's bank account information is current."],
+  ['Primary Contact Information', "Ensure that your company's primary contact is up to date in our system."],
+];
+document.getElementById('maintenance-checklist').innerHTML = maintenanceItems.map(([label, detail]) =>
+  `<li><strong>${label}:</strong> ${detail}</li>`
+).join('');
+
+const firstTimeItems = [
+  ['Register for the CSP', 'The primary contact needs to process the email invitation to register on the CSP. NOTE: You cannot register for the CSP without the invitation from Coupa.'],
+  ['Create your account', 'After receiving the invitation, create the CSP Account.'],
+  ['Create Custom Views', 'Change the view settings depending on how you want to see information on orders, invoices, catalogs, ASNs, or payments from BioTouch.'],
+  ['Manage your account', 'Change your personal information, set your preferences.'],
+  ['Navigate and Get Help', "Learn where to find what's in the CSP by using the OnDemand Microlessons guidance."],
+  ['View and Manage Notifications', 'Set your notification preferences.'],
+];
+document.getElementById('first-time-checklist').innerHTML = firstTimeItems.map(([label, detail]) =>
+  `<li><strong>${label}</strong>: ${detail}</li>`
+).join('');
+
+const whyCoupa = [
+  'The Coupa Supplier Portal enables deeper collaboration with our indirect material suppliers',
+  "BioTouch's preferred method of transacting with indirect suppliers",
+  'Reduces supply chain risks, disruptions and shortages',
+];
+document.getElementById('why-coupa-list').innerHTML = whyCoupa.map((item) =>
+  `<li>${item}</li>`
+).join('');
+
+const benefits = [
+  'Ability to receive and confirm purchase orders and submit invoices electronically',
+  'Easy invoice creation via PO flip — automatically sends invoice for processing',
+  'Improve visibility into the status of e-routed transactions',
+  'Improve ability to get paid on time with automated invoice matching',
+];
+document.getElementById('benefits-list').innerHTML = benefits.map((item) =>
+  `<li>${item}</li>`
+).join('');
+
+const usefulDocuments = [
+  'Supplier Code of Conduct – English',
+  'Supplier Code of Conduct – French (Canada)',
+  'Supplier Code of Conduct – Spanish',
+  'General Terms and Conditions of Purchase',
+  'Privacy and Data Protection',
+  'Supplier Insurance Requirements',
+  'Supplier Safety and Health Declaration',
+  'Travel and Expense Guidelines',
+  'Consumer Privacy Rights',
+];
+document.getElementById('doc-grid').innerHTML = usefulDocuments.map((title) =>
+  `<a class="sp-doc-card" href="#"><h4>${title}</h4><span class="sp-doc-download">Download PDF ${ICONS.docdl}</span></a>`
+).join('');
+
+document.getElementById('doc-accordion-trigger').addEventListener('click', () => {
+  const item = document.getElementById('doc-accordion');
+  const open = item.classList.toggle('is-open');
+  document.getElementById('doc-accordion-trigger').setAttribute('aria-expanded', open);
+});
+
+const supplierGuides = [
+  'Coupa Supplier Registration and Electronic Invoicing',
+  'Creating an Invoice',
+  'Creating a Credit Note',
+  'Receiving a Purchase Order',
+  'Supplier Profile Information Request Guide',
+  'Coupa Overview Guide',
+  'Coupa Supplier Portal Admin and User Guide',
+];
+document.getElementById('guides-grid').innerHTML = supplierGuides.map((title) =>
+  `<a class="sp-doc-card" href="#"><h4>${title}</h4><span class="sp-doc-download">Download PDF ${ICONS.docdl}</span></a>`
+).join('');
+
+document.getElementById('guides-accordion-trigger').addEventListener('click', () => {
+  const item = document.getElementById('guides-accordion');
+  const open = item.classList.toggle('is-open');
+  document.getElementById('guides-accordion-trigger').setAttribute('aria-expanded', open);
+});
+
+/* ---- Contact Us: live "n/max" counters + submit enable/disable ---- */
+const CONTACT_REQUIRED = ['firstName', 'lastName', 'email', 'phone', 'companyName', 'message'];
+const contactForm = document.getElementById('contact-form');
+const contactSubmit = document.getElementById('contact-submit');
+
+function updateContactState() {
+  contactForm.querySelectorAll('input[maxlength], textarea[maxlength]').forEach((field) => {
+    const counterEl = field.closest('.sp-field').querySelector('.sp-field-counter, .sp-field-counter-static');
+    if (counterEl) counterEl.textContent = `${field.value.length}/${field.getAttribute('maxlength')}`;
+  });
+  const canSubmit = CONTACT_REQUIRED.every((name) => contactForm.elements[name].value.trim().length > 0);
+  contactSubmit.disabled = !canSubmit;
+}
+contactForm.addEventListener('input', updateContactState);
+
+contactForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  contactForm.outerHTML = '<p class="sp-text">Thanks — your message has been received. A member of the BioTouch supplier team will be in touch shortly.</p>';
+});
+
+const faqGroup1 = [
+  { q: 'Why has BioTouch Global partnered with Coupa?', a: "The Coupa solution provides many benefits to our suppliers, including free access to the Coupa Supplier Portal (CSP) where suppliers can manage their company information, view their POs, invoices, payment status and initiate e-invoicing to eliminate paper and support BioTouch's initiatives." },
+  { q: 'Is enrollment with Coupa required?', a: 'We hope that all our suppliers will partner with us by signing up for a Coupa account to transact electronically. To begin this process, contact Supplier Support at suppliersupport@biotouch.com. Please include your company name and contact information so that we can reach out to you.' },
+  { q: 'How much does it cost to join the Coupa Supplier Portal (CSP)?', a: "Coupa doesn't charge suppliers to use the CSP." },
+  { q: 'Where can I get help registering in Coupa?', a: 'Suppliers that need registration help can use the Coupa Success Portal or download the Suppliers Guide for Registration and E-Invoicing.' },
+  { q: 'Will BioTouch make payment using Coupa?', a: 'BioTouch will not issue payments through Coupa. However, you will be able to see your payment details through the Coupa Supplier Portal.' },
+];
+const faqGroupOrders = [
+  { q: 'What if a purchase order was cancelled?', a: 'For any purchase order issues, email the BioTouch Corporate Accounts Payable team at purchasing@biotouchglobal.com.' },
+  { q: 'How do I see BioTouch Global purchase orders?', a: 'On the main menu, click on the Orders tab. If you are connected to more than one Coupa customer, select their name from the Select Customer dropdown menu. You can see BioTouch Global purchase orders only if you have access.' },
+  { q: 'How do I invoice a blanket purchase order?', a: "You can invoice multiple times against a single PO. Just click the gold coin icon for the PO as you normally would and enter the amount you'd like to appear on the invoice. The next time you want to invoice against the PO, just do the same thing." },
+  { q: 'What is the purpose of acknowledgment by the supplier?', a: "You can let your customers know that you've received the order. Some Coupa customers like their suppliers to use that field. Ask them if they want you to use it." },
+];
+const faqGroup2 = [
+  { q: 'How do I cancel an invoice?', a: 'Contact the BioTouch Corporate Accounts Payable team and request to have your Coupa invoice disputed. Once the invoice shows in disputed status, you can submit a correction or void the invoice. Disputed invoices will be voided after 90 days of inactivity.' },
+  {
+    q: 'What type of files can I attach to an invoice?',
+    a: 'For invoice image scans, attachments must be of the following types: PNG, GIF, JPG, JPEG, PJPEG, TIFF, or PDF.',
+    after: "One attachment can be up to 100 MB, but for performance reasons, consider limiting the attachment size to 16 MB or so.",
+  },
+  { q: "What if I have an invoice that hasn't been paid?", a: 'For questions regarding payment information, contact BioTouch Global directly.' },
+  { q: 'Once an invoice has been approved, what do I do next?', a: "Nothing. The invoice is in BioTouch's queue and you'll be paid based on the payment terms." },
+];
+const faqGroup3 = [
+  { q: 'What browser should I use with Coupa?', a: 'All browsers are supported, but Google Chrome is preferred.' },
+  {
+    q: 'What types of files can be attached in the Coupa Supplier Portal (CSP)?',
+    a: 'Invoices can be attached in the Image Scan section of Coupa. Additional documents can be attached in the documents section using any of the following file types:',
+    list: ['PDF', 'TIFF', 'DOC', 'JPG', 'XLS', 'XML', 'CSV', 'TXT'],
+  },
+  { q: 'What if I am not receiving password reset emails?', a: 'Check your spam/junk email folder.' },
+  {
+    q: 'Where can I go for help with Coupa?',
+    a: 'There are two places you can visit for help with Coupa:',
+    listType: 'ol',
+    listItems: [
+      { text: 'Coupa Success Portal for Suppliers', href: 'https://compass.coupa.com/en-us/products/product-documentation/supplier-resources/for-suppliers' },
+      { text: 'Coupa Live Chat' },
+    ],
+    after: 'You must be logged in to the Coupa Supplier Portal to take advantage of the live chat feature.',
+  },
+  { q: 'What should I do if I get locked out of the Coupa Supplier Portal (CSP)?', a: "If you don't have your six-digit backup validation code, contact Coupa Support directly." },
+  { q: 'What should I do if I receive a “We’re sorry, but something went wrong” error?', a: 'Contact Coupa Support directly.' },
+];
+
+function renderAccordion(mountId, items) {
+  const mount = document.getElementById(mountId);
+  mount.innerHTML = items.map((item, i) => {
+    const listHtml = item.list
+      ? `<ul class="sp-accordion-list">${item.list.map((entry) => `<li>${entry}</li>`).join('')}</ul>`
+      : '';
+    const listItemsHtml = item.listItems
+      ? `<${item.listType === 'ol' ? 'ol' : 'ul'} class="sp-accordion-list">${item.listItems
+          .map((entry) => `<li>${entry.href ? `<a class="sp-accordion-link" href="${entry.href}" target="_blank" rel="noreferrer">${entry.text}</a>` : entry.text}</li>`)
+          .join('')}</${item.listType === 'ol' ? 'ol' : 'ul'}>`
+      : '';
+    const afterHtml = item.after ? `<p>${item.after}</p>` : '';
+    return `<div class="sp-accordion-item sp-accordion-item-flat" data-acc="${mountId}-${i}">
+      <button type="button" class="sp-accordion-trigger" aria-expanded="false">
+        <span>${item.q}</span>
+        <span class="sp-doc-toggle" aria-hidden="true"></span>
+      </button>
+      <div class="sp-accordion-panel"><div class="sp-accordion-panel-inner"><div class="sp-accordion-body"><p>${item.a}</p>${listHtml}${listItemsHtml}${afterHtml}</div></div></div>
+    </div>`;
+  }).join('');
+  mount.querySelectorAll('.sp-accordion-trigger').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.sp-accordion-item');
+      const open = item.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open);
+    });
+  });
+}
+renderAccordion('faq-group-1', faqGroup1);
+renderAccordion('faq-group-2', faqGroup2);
+renderAccordion('faq-group-orders', faqGroupOrders);
+renderAccordion('faq-group-3', faqGroup3);
+
+/* ---- tab / subtab switching ---- */
+const HERO_CONTENT = {
+  supplier: {
+    title: 'Suppliers',
+    sub: 'Our suppliers are essential to our business and the care we deliver.',
+    body: 'BioTouch uses the Coupa Operating Network to manage purchase orders, invoices and supplier records. Explore the tabs below to register, learn how we pay, and find answers to common questions. This content applies to suppliers in the U.S.',
+  },
+  'become-a-supplier': {
+    title: 'Become a Supplier',
+    sub: 'Play an integral part in helping our business run.',
+    body: '',
+  },
+  csp: {
+    title: 'Coupa Supplier Portal (CSP)',
+    sub: "Coupa is BioTouch's global platform for indirect procurement and Source-to-Pay (S2P) activities. It connects teams and suppliers to streamline purchasing, collaboration, and value creation.",
+    body: '',
+  },
+  faqs: {
+    title: 'Supplier FAQs',
+    sub: 'The supplier knowledge you need, all in one place.',
+    body: '',
+  },
+  contact: {
+    title: 'Contact Us',
+    sub: 'Please reach out to BioTouch using the form below.',
+    body: '',
+  },
+};
+
+function switchTab(target) {
+  document.querySelectorAll('[data-tab-btn]').forEach((b) => b.classList.toggle('is-active', b.getAttribute('data-tab-btn') === target));
+  document.querySelectorAll('[data-panel]').forEach((panel) => {
+    panel.hidden = panel.getAttribute('data-panel') !== target;
+  });
+  const hero = HERO_CONTENT[target] || HERO_CONTENT.supplier;
+  document.getElementById('hero-title').textContent = hero.title;
+  document.getElementById('hero-sub').textContent = hero.sub;
+  document.getElementById('hero-body').textContent = hero.body;
+  document.getElementById('hero-body').hidden = !hero.body;
+  // A newly-revealed panel's "Table of Content" card was skipped while
+  // hidden (see the .sp-toc-card-list setup below) — nudge its scroll
+  // listener to run now that it's actually visible.
+  window.dispatchEvent(new Event('scroll'));
+}
+
+document.querySelectorAll('[data-goto-tab]').forEach((btn) => {
+  btn.addEventListener('click', () => switchTab(btn.getAttribute('data-goto-tab')));
+});
+
+document.querySelectorAll('[data-tab-btn]').forEach((btn) => {
+  btn.addEventListener('click', () => switchTab(btn.getAttribute('data-tab-btn')));
+});
+
+document.querySelectorAll('[data-subtab-btn]').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-subtab-btn]').forEach((b) => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    const target = btn.getAttribute('data-subtab-btn');
+    document.querySelectorAll('[data-subpanel]').forEach((panel) => {
+      panel.hidden = panel.getAttribute('data-subpanel') !== target;
+    });
+    // Same as switchTab() above — refresh the newly-revealed subpanel's TOC.
+    window.dispatchEvent(new Event('scroll'));
+  });
+});
+
+/* ---- "Table of Content" side cards — highlight whichever section in that
+   card's own list is scrolled into view. Each .sp-toc-card-list is handled
+   independently so the "How To Register" and "FAQs & Coupa Guides" cards
+   (or any future one) don't affect each other's active state.
+
+   Walk the sections in order and take the last one whose top has crossed
+   this line — i.e. the section we're currently inside. The line sits around
+   the middle of the viewport rather than close to the top: a line near the
+   top stays "inside" a tall section (e.g. "Where Do I Register", with its
+   multi-item checklist) for the entire time its heading is still visible at
+   all, even once a later, shorter section has scrolled substantially into
+   view below it — exactly the "lingering on the previous heading" bug this
+   replaced. ---- */
+document.querySelectorAll('.sp-toc-card-list').forEach((list) => {
+  const links = list.querySelectorAll('[data-toc-target]');
+  if (!links.length) return;
+
+  const setActive = (id) => {
+    links.forEach((link) => link.classList.toggle('is-active', link.getAttribute('data-toc-target') === id));
+  };
+
+  const sections = [...links]
+    .map((link) => document.getElementById(link.getAttribute('data-toc-target')))
+    .filter(Boolean);
+  if (!sections.length) return;
+
+  // While a click-triggered smooth scroll is in flight (and briefly after),
+  // ignore scroll-driven updates entirely — see the click-line comment
+  // below for why.
+  let suppressUntil = 0;
+  let ticking = false;
+  const updateActive = () => {
+    ticking = false;
+    if (list.offsetParent === null) return; // this TOC's panel isn't visible right now
+    if (Date.now() < suppressUntil) return;
+    const line = window.innerHeight * 0.55;
+    let current = sections[0].id;
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= line) {
+        current = section.id;
+      } else {
+        break;
+      }
+    }
+    setActive(current);
+  };
+  const handleScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(updateActive);
+  };
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('resize', handleScroll);
+  updateActive();
+
+  links.forEach((link) => {
+    // Plain href="#id" anchors silently do nothing when the URL hash is
+    // already sitting on that id (e.g. click a TOC entry, scroll away by
+    // hand, click the same entry again) — browsers only re-scroll on a hash
+    // *change*. Scrolling manually on click sidesteps that entirely.
+    //
+    // The mid-viewport line above is deliberately generous, which creates a
+    // separate problem for *clicking*: a short section's very next
+    // neighbor (e.g. "Requesting an Invitation", right below
+    // "Considerations") can already be sitting above that line the instant
+    // the clicked section finishes landing at the top — the scroll-driven
+    // check would then immediately steal the highlight back. Setting
+    // active directly and suppressing the scroll-driven check for under a
+    // second sidesteps that: the click is the source of truth until the
+    // scroll settles, then normal scroll tracking resumes.
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = link.getAttribute('data-toc-target');
+      setActive(id);
+      suppressUntil = Date.now() + 900;
+      const section = document.getElementById(id);
+      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+});
+</script>
+</body>
+</html>
