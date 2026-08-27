@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/svg+xml" href="./public/logo.svg" />
 <title>Suppliers | BioTouch Global (static preview — no Node required)</title>
 <link rel="stylesheet" href="./src/index.css" />
 <link rel="stylesheet" href="./src/SupplierPage.css" />
@@ -596,9 +597,38 @@ function updateContactState() {
 }
 contactForm.addEventListener('input', updateContactState);
 
-contactForm.addEventListener('submit', (e) => {
+contactForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  contactForm.outerHTML = '<p class="sp-text">Thanks — your message has been received. A member of the BioTouch supplier team will be in touch shortly.</p>';
+  contactSubmit.disabled = true;
+  contactSubmit.textContent = 'Sending…';
+  let existingError = contactForm.querySelector('.sp-contact-error');
+  if (existingError) existingError.remove();
+
+  const values = {};
+  CONTACT_REQUIRED.concat(['locationCountry', 'locationProvince', 'category', 'serviceType']).forEach((name) => {
+    values[name] = contactForm.elements[name] ? contactForm.elements[name].value : '';
+  });
+
+  try {
+    // NOTE: /api/contact only exists when this page is served via
+    // `vercel dev` (or deployed) — opening preview.html as a raw file has
+    // no server behind it, so this fetch will fail with no backend to hit.
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.');
+    contactForm.outerHTML = '<p class="sp-text">Thanks — your message has been received. A member of the BioTouch supplier team will be in touch shortly.</p>';
+  } catch (err) {
+    const errorEl = document.createElement('p');
+    errorEl.className = 'sp-text sp-contact-error';
+    errorEl.textContent = err.message || 'Something went wrong. Please try again.';
+    contactSubmit.closest('.sp-contact-submit-row').before(errorEl);
+    contactSubmit.disabled = false;
+    contactSubmit.textContent = 'Submit';
+  }
 });
 
 const faqGroup1 = [

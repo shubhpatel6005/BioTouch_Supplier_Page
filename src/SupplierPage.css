@@ -1335,6 +1335,16 @@
   color: var(--bt-gray-400);
 }
 
+.sp-contact-error {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 12px 16px;
+  color: #b3261e;
+  background: rgba(179, 38, 30, 0.08);
+  border: 1px solid rgba(179, 38, 30, 0.25);
+  border-radius: var(--radius-sm);
+}
+
 .sp-contact-submit-row {
   grid-column: 1 / -1;
   margin-top: 8px;

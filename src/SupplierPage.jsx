@@ -775,14 +775,31 @@ const CONTACT_REQUIRED = ['firstName', 'lastName', 'email', 'phone', 'companyNam
 function ContactTab() {
   const [values, setValues] = useState(CONTACT_INITIAL)
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
   const update = (name) => (e) => setValues((v) => ({ ...v, [name]: e.target.value }))
   const canSubmit = CONTACT_REQUIRED.every((name) => values[name].trim().length > 0)
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
-    if (!canSubmit) return
-    setSubmitted(true)
+    if (!canSubmit || submitting) return
+    setSubmitting(true)
+    setError('')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.')
+      setSubmitted(true)
+    } catch (err) {
+      setError(err.message || 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -871,9 +888,11 @@ function ContactTab() {
               textarea
             />
 
+            {error && <p className="sp-text sp-contact-error">{error}</p>}
+
             <div className="sp-contact-submit-row">
-              <button type="submit" className="sp-contact-submit" disabled={!canSubmit}>
-                Submit
+              <button type="submit" className="sp-contact-submit" disabled={!canSubmit || submitting}>
+                {submitting ? 'Sending…' : 'Submit'}
               </button>
             </div>
           </form>
