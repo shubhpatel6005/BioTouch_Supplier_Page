@@ -306,6 +306,7 @@ function CspTab() {
       {subTab === 'How To Register' && <CspHowToRegister />}
       {subTab === 'First Time Users' && <CspFirstTimeUsers />}
       {subTab === 'Account Creation' && <CspAccountCreation />}
+      {subTab === 'PO Collaboration' && <CspPoCollaboration />}
     </div>
   )
 }
@@ -607,6 +608,26 @@ function StepImage({ src, alt }) {
     return <span className="sp-step-image-placeholder">Screenshot coming soon</span>
   }
   return <img className="sp-step-image" src={src} alt={alt} onError={() => setImgOk(false)} />
+}
+
+function CspPoCollaboration() {
+  const { poCollaboration } = cspTab
+  return (
+    <section className="sp-flat-section sp-po-page">
+      <span className="sp-po-video-frame">
+        {/* preload="metadata" avoids pulling the full training video down
+            before a visitor actually presses play. */}
+        <video className="sp-po-video" src={poCollaboration.video.src} controls preload="metadata" />
+      </span>
+      <p className="sp-text">
+        {poCollaboration.guide.before}
+        <a className="sp-plain-link" href={poCollaboration.guide.href} target="_blank" rel="noreferrer">
+          {poCollaboration.guide.text}
+        </a>
+        {poCollaboration.guide.after}
+      </p>
+    </section>
+  )
 }
 
 /* ------------------------------- FAQ tab -------------------------------- */

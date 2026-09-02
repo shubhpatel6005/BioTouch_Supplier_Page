@@ -128,7 +128,7 @@ export const supplierTab = {
 }
 
 export const cspTab = {
-  subTabs: ['Overview', 'How To Register', 'First Time Users', 'Account Creation'],
+  subTabs: ['Overview', 'How To Register', 'First Time Users', 'Account Creation', 'PO Collaboration'],
   overview: {
     intro:
       'Welcome to the Coupa Supplier Portal (CSP), our secure and integrated platform designed to facilitate efficient collaboration between our organization and our valued suppliers. The portal enables streamlined management of procurement transactions, improves transparency, and ensures timely processing of orders and payments. Through CSP, suppliers can access real-time information, submit documents electronically, and maintain accurate company records within a centralized system.',
@@ -280,6 +280,15 @@ export const cspTab = {
         images: ['account-creation-invoice-creation.png'],
       },
     ],
+  },
+  poCollaboration: {
+    video: { src: '/videos/po-collaboration-training.mp4' },
+    guide: {
+      before: 'Watch the video above for a full walkthrough, or download the ',
+      text: 'PO Collaboration Training Guide (PDF)',
+      after: '.',
+      href: '/documents/po-collaboration-guide.pdf',
+    },
   },
 }
 
