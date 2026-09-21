@@ -1641,3 +1641,17 @@
     height: 17px;
   }
 }
+
+/* Headings on light backgrounds use Pantone 7662. (The hero title/sub stay
+   white — they sit on a 7662 background.) */
+.sp-promo-heading,
+.sp-flat-heading,
+.sp-register-heading,
+.sp-plain-subheading,
+.sp-toc-card-title,
+.sp-card-title,
+.sp-doc-accordion-title,
+.sp-doc-card h4,
+.sp-faq-heading {
+  color: var(--bt-violet);
+}
