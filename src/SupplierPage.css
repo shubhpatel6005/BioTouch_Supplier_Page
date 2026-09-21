@@ -1,11 +1,16 @@
-/* Brand tokens pulled from biotouchglobal.com's own stylesheet */
+/* Brand tokens per the official BioTouch Brand Guideline (Oct 2022, v2):
+   Pantone 2286 (green), 669 (purple), 7466 (teal), 7662 (violet/accent),
+   Cool Gray 6. -dark variants are a ~22% darkened shade of the same hue for
+   gradients/hover states, since the guideline only specifies one value per
+   color. */
 .sp-page {
-  --bt-green: #60bc14;
-  --bt-green-dark: #4c9610;
-  --bt-purple: rgb(82, 58, 110);
-  --bt-purple-dark: rgb(82, 58, 110);
-  --bt-teal: #4eb3bd;
-  --bt-teal-dark: #3a8f97;
+  --bt-green: #7dc243;
+  --bt-green-dark: #629734;
+  --bt-purple: #3f2b56;
+  --bt-purple-dark: #312243;
+  --bt-teal: #00b5be;
+  --bt-teal-dark: #008d94;
+  --bt-violet: #77448a;
   --bt-gray-900: #2f2a38;
   --bt-gray-600: #5a5760;
   --bt-gray-400: #a6a8ab;
@@ -17,12 +22,78 @@
   --radius-md: 20px;
   --radius-sm: 14px;
   --radius-pill: 9999px;
-  --shadow-card: 0 20px 40px -32px rgba(46, 27, 68, 0.35);
-  --shadow-card-hover: 0 24px 48px -24px rgba(46, 27, 68, 0.4);
+  --shadow-card: 0 20px 40px -32px rgba(49, 34, 67, 0.35);
+  --shadow-card-hover: 0 24px 48px -24px rgba(49, 34, 67, 0.4);
 
-  font-family: 'Century Gothic', CenturyGothic, AppleGothic, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  /* Fieldwork (primary) falls back to Adelle (secondary) per the guideline's
+     header type ramp, then to the body font, until the licensed font files
+     land in public/fonts (see public/fonts/README.txt) and the @font-face
+     rules below pick them up automatically. */
+  --font-heading: 'Fieldwork Geo', 'Adelle', 'Nunito', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-body: 'Nunito', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+
+  font-family: var(--font-body);
   color: var(--bt-gray-900);
   background: var(--bt-bg-page);
+}
+
+/* Licensed brand fonts — drop the .woff2 files into public/fonts (exact
+   filenames in public/fonts/README.txt). Until they exist the browser skips
+   these and falls back down --font-heading's stack. */
+@font-face {
+  font-family: 'Fieldwork Geo';
+  src: url('/fonts/FieldworkGeo-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fieldwork Geo';
+  src: url('/fonts/FieldworkGeo-Demibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fieldwork Geo';
+  src: url('/fonts/FieldworkGeo-Bold.woff2') format('woff2');
+  font-weight: 700 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Adelle';
+  src: url('/fonts/Adelle-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Adelle';
+  src: url('/fonts/Adelle-Bold.woff2') format('woff2');
+  font-weight: 700 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Headers and large text use the heading family; body copy, buttons, tabs
+   and form controls stay on Nunito. */
+.sp-hero-title,
+.sp-hero-sub,
+.sp-promo-heading,
+.sp-flat-heading,
+.sp-register-heading,
+.sp-plain-subheading,
+.sp-toc-card-title,
+.sp-card-title,
+.sp-doc-accordion-title,
+.sp-doc-card h4,
+.sp-faq-heading {
+  font-family: var(--font-heading);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -119,7 +190,7 @@
   width: 100%;
   background: #ffffff;
   border-bottom: 1px solid var(--bt-border);
-  box-shadow: 0 12px 24px -20px rgba(46, 27, 68, 0.35);
+  box-shadow: 0 12px 24px -20px rgba(49, 34, 67, 0.35);
 }
 
 .sp-tabnav-inner {
@@ -612,7 +683,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 8px 18px -8px rgba(46, 27, 68, 0.4);
+  box-shadow: 0 8px 18px -8px rgba(49, 34, 67, 0.4);
 }
 
 .sp-chip-sm {
@@ -743,7 +814,7 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: rgba(96, 188, 20, 0.14);
+  background: rgba(125, 194, 67, 0.14);
   color: var(--bt-green-dark);
   display: flex;
   align-items: center;
@@ -752,7 +823,7 @@
 }
 
 .sp-check-badge-purple {
-  background: rgba(94, 46, 155, 0.14);
+  background: rgba(63, 43, 86, 0.14);
   color: var(--bt-purple);
 }
 
@@ -811,13 +882,13 @@
   background: linear-gradient(135deg, var(--bt-green), var(--bt-green-dark));
   border-radius: var(--radius-pill);
   padding: 13px 22px 13px 26px;
-  box-shadow: 0 12px 24px -10px rgba(96, 188, 20, 0.55);
+  box-shadow: 0 12px 24px -10px rgba(125, 194, 67, 0.55);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .sp-btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 28px -8px rgba(96, 188, 20, 0.6);
+  box-shadow: 0 16px 28px -8px rgba(125, 194, 67, 0.6);
 }
 
 /* --------------------------------- Sub tabs ------------------------------- */
@@ -881,14 +952,14 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--bt-green-dark);
-  background: rgba(96, 188, 20, 0.12);
+  background: rgba(125, 194, 67, 0.12);
   border-radius: var(--radius-pill);
   padding: 4px 12px;
 }
 
 .sp-tag-purple {
   color: var(--bt-purple);
-  background: rgba(94, 46, 155, 0.12);
+  background: rgba(63, 43, 86, 0.12);
   margin-right: 10px;
 }
 
@@ -1095,7 +1166,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: rgba(96, 188, 20, 0.12);
+  background: rgba(125, 194, 67, 0.12);
   color: var(--bt-green-dark);
   display: flex;
   align-items: center;
@@ -1185,7 +1256,7 @@
 
 .sp-faq-search-input:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(96, 188, 20, 0.55), 0 20px 40px -18px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 3px rgba(125, 194, 67, 0.55), 0 20px 40px -18px rgba(0, 0, 0, 0.4);
 }
 
 .sp-faq-search-icon {
