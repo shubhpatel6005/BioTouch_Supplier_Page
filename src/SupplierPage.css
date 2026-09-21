@@ -106,7 +106,7 @@
 /* ---------------------------------- Hero --------------------------------- */
 
 .sp-hero {
-  background: var(--bt-purple-dark);
+  background: var(--bt-violet);
   padding: 48px 0 56px;
   position: relative;
   overflow: hidden;
