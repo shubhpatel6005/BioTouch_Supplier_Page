@@ -168,10 +168,14 @@ export const cspTab = {
     },
     considerations:
       'You have to wait for BioTouch to send the invitation email. If you are the confirmed primary contact, and cannot find the invite, contact BioTouch for support.',
+    // Rich-text body (same { text, tab } shape as renderRichText elsewhere) so
+    // "Contact Us" switches tabs in-page rather than linking out.
     requestingInvitation: {
-      body: 'You can request an invitation to join the Coupa Supplier Portal. Reach out to BioTouch by using the support form:',
-      linkText: 'https://biotouch.coupa.supplier-support.form',
-      linkHref: '#',
+      body: [
+        'You can request an invitation to join the Coupa Supplier Portal. Reach out to BioTouch using the ',
+        { text: 'Contact Us', tab: 'contact' },
+        ' page and select “Coupa Registration” under Category.',
+      ],
     },
   },
   firstTimeUsers: {
@@ -450,6 +454,7 @@ export const contactTab = {
   categoryOptions: [
     'General Inquiry',
     'Supplier Registration',
+    'Coupa Registration',
     'Invoicing & Payments',
     'Technical Support',
     'Other',

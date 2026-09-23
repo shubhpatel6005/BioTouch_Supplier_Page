@@ -71,7 +71,7 @@ export default function SupplierPage() {
       <main className="sp-container">
         {activeTab === 'supplier' && <SupplierTab onNavigate={setActiveTab} />}
         {activeTab === 'become-a-supplier' && <BecomeSupplierTab onNavigate={setActiveTab} />}
-        {activeTab === 'csp' && <CspTab subTab={cspSubTab} />}
+        {activeTab === 'csp' && <CspTab subTab={cspSubTab} onNavigate={setActiveTab} />}
         {activeTab === 'faqs' && <FaqTab />}
         {activeTab === 'contact' && <ContactTab />}
       </main>
@@ -382,11 +382,11 @@ function highlightText(text, query) {
 
 // Sub-page is chosen from the nav's Coupa Supplier Portal dropdown; subTab is
 // owned by SupplierPage so that dropdown can set it.
-function CspTab({ subTab }) {
+function CspTab({ subTab, onNavigate }) {
   return (
     <div className="sp-tabpanel">
       {subTab === 'Overview' && <CspOverview />}
-      {subTab === 'How To Register' && <CspHowToRegister />}
+      {subTab === 'How To Register' && <CspHowToRegister onNavigate={onNavigate} />}
       {subTab === 'First Time Users' && <CspFirstTimeUsers />}
       {subTab === 'Account Creation' && <CspAccountCreation />}
       {subTab === 'PO Collaboration' && <CspPoCollaboration />}
@@ -457,7 +457,7 @@ const REGISTER_TOC_ITEMS = [
   { id: 'requesting-an-invitation', label: 'Requesting an Invitation' },
 ]
 
-function CspHowToRegister() {
+function CspHowToRegister({ onNavigate }) {
   const { howToRegister } = cspTab
   return (
     <div className="sp-toc-layout">
@@ -493,15 +493,7 @@ function CspHowToRegister() {
         <section className="sp-register-section" id="requesting-an-invitation">
           <h2 className="sp-register-heading">Requesting an Invitation</h2>
           <p className="sp-text">
-            {howToRegister.requestingInvitation.body}{' '}
-            <a
-              className="sp-plain-link"
-              href={howToRegister.requestingInvitation.linkHref}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {howToRegister.requestingInvitation.linkText}
-            </a>
+            {renderRichText(howToRegister.requestingInvitation.body, onNavigate)}
           </p>
         </section>
       </div>

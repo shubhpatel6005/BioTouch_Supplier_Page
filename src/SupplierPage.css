@@ -618,22 +618,24 @@
    of the photo covering the frame edge-to-edge. The frame is inset a bit
    from the top and bottom of the row (so it reads shorter than the full row
    height) and centers vertically in that space. */
+/* No border or padding — the photo sits on the page directly, filling its
+   column. */
 .sp-quick-intro-frame {
   display: flex;
   align-items: center;
   justify-content: center;
   align-self: center;
-  height: calc(100% - 48px);
-  border: 1px solid var(--bt-border);
-  border-radius: var(--radius-md);
-  padding: 12px;
-  background: #ffffff;
+  width: 100%;
+  height: 100%;
 }
 
+/* Square, matching the promo card photos. cover crops to fill rather than
+   distorting the screenshot. */
 .sp-quick-intro-img {
   display: block;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
   object-fit: cover;
   border-radius: var(--radius-sm);
 }
@@ -692,14 +694,33 @@
 /* "How To Register" — bold heading with a dark rule beneath. Same weight +
    color as every other heading on the site (.sp-flat-heading, .sp-card-title,
    .sp-faq-heading, etc.) so it doesn't read as a different typeface. */
+/* Original size and weight; the rule underneath has been dropped. */
 .sp-register-heading {
   margin: 0 0 20px;
-  padding-bottom: 10px;
   font-size: clamp(22px, 2.4vw, 26px);
   font-weight: 700;
-  color: var(--bt-purple-dark);
   letter-spacing: -0.01em;
-  border-bottom: 2px solid var(--bt-gray-900);
+  /* Flat fallback for browsers without background-clip on text. */
+  color: var(--bt-purple);
+  /* Hugs the text so the gradient below maps across the words themselves
+     rather than being stretched over the full column width. */
+  width: fit-content;
+  max-width: 100%;
+}
+
+/* Pantone 7662 easing into 669. Runs left to right, not top to bottom: these
+   headings are a single line, so a vertical blend has only ~30px to travel
+   and the two purples read as one flat colour. Guarded so the heading falls
+   back to flat colour rather than turning invisible where background-clip on
+   text isn't supported. */
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .sp-register-heading {
+    background-image: linear-gradient(90deg, var(--bt-violet) 0%, var(--bt-purple) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
 }
 
 .sp-register-section + .sp-register-section {
@@ -2205,7 +2226,8 @@
    promo card headings on the Supplier page. (The hero title/sub stay white —
    they sit on the brand gradient.) */
 .sp-flat-heading,
-.sp-register-heading,
+/* .sp-register-heading is not here — it carries a gradient, set in one place
+   further up, and a colour here would fight it. */
 .sp-toc-card-title,
 .sp-card-title,
 .sp-faq-heading,
