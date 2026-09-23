@@ -16,6 +16,8 @@ import {
   StarIcon,
   DocumentDownloadIcon,
   SearchIcon,
+  MenuIcon,
+  CloseIcon,
 } from './icons.jsx'
 
 const MAIN_TABS = [
@@ -54,18 +56,132 @@ const HERO_CONTENT = {
 
 export default function SupplierPage() {
   const [activeTab, setActiveTab] = useState('supplier')
+  // Lifted out of CspTab so the nav dropdown can jump straight to a sub-page.
+  const [cspSubTab, setCspSubTab] = useState(cspTab.subTabs[0])
+
+  const goToCspSubTab = (sub) => {
+    setCspSubTab(sub)
+    setActiveTab('csp')
+  }
 
   return (
     <div className="sp-page">
+      <BrandBar activeTab={activeTab} onChange={setActiveTab} onSelectCspSubTab={goToCspSubTab} />
       <Hero content={HERO_CONTENT[activeTab] ?? HERO_CONTENT.supplier} />
-      <TabNav activeTab={activeTab} onChange={setActiveTab} />
       <main className="sp-container">
         {activeTab === 'supplier' && <SupplierTab onNavigate={setActiveTab} />}
         {activeTab === 'become-a-supplier' && <BecomeSupplierTab onNavigate={setActiveTab} />}
-        {activeTab === 'csp' && <CspTab />}
+        {activeTab === 'csp' && <CspTab subTab={cspSubTab} />}
         {activeTab === 'faqs' && <FaqTab />}
         {activeTab === 'contact' && <ContactTab />}
       </main>
+    </div>
+  )
+}
+
+// The live marketing site is biotouchglobal.com — biotouch.com 301s to an
+// internal Google Sites portal, so the logo points at the former.
+const SITE = 'https://biotouchglobal.com'
+
+// Floating white capsule styled after the biotouchglobal.com nav, but driving
+// this page's own tabs rather than the marketing site's sections. "Contact Us"
+// is the last tab and takes the pill-button treatment the live nav gives it.
+function BrandBar({ activeTab, onChange, onSelectCspSubTab }) {
+  const [menuOpen, setMenuOpen] = useState(false)
+  // Which nav item has its sub-page flyout open. Only 'csp' has one.
+  const [openFlyout, setOpenFlyout] = useState(null)
+  const linkTabs = MAIN_TABS.filter((tab) => tab.id !== 'contact')
+  const contactTabItem = MAIN_TABS.find((tab) => tab.id === 'contact')
+
+  const select = (id) => {
+    onChange(id)
+    setMenuOpen(false)
+    setOpenFlyout(null)
+  }
+
+  const selectCspSubTab = (sub) => {
+    onSelectCspSubTab(sub)
+    setMenuOpen(false)
+    setOpenFlyout(null)
+  }
+
+  return (
+    <div className="sp-brandbar">
+      <nav className="sp-brandbar-inner" aria-label="Supplier page sections">
+        <a className="sp-brandbar-logo" href={SITE} target="_blank" rel="noopener noreferrer">
+          <img src="/images/biotouch-logo.png" alt="BioTouch" />
+        </a>
+
+        <button
+          type="button"
+          className="sp-nav-toggle"
+          aria-expanded={menuOpen}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          {menuOpen ? <CloseIcon /> : <MenuIcon />}
+        </button>
+
+        <div className={`sp-nav-group ${menuOpen ? 'is-open' : ''}`}>
+          <ul className="sp-nav-links">
+            {linkTabs.map((tab) => {
+              // Only the Coupa Supplier Portal item has sub-pages to reveal.
+              const subPages = tab.id === 'csp' ? cspTab.subTabs : null
+              const flyoutOpen = openFlyout === tab.id
+
+              return (
+                <li
+                  key={tab.id}
+                  className={subPages ? 'sp-nav-has-flyout' : undefined}
+                  onMouseEnter={subPages ? () => setOpenFlyout(tab.id) : undefined}
+                  onMouseLeave={subPages ? () => setOpenFlyout(null) : undefined}
+                >
+                  <button
+                    type="button"
+                    className={flyoutOpen ? 'is-flyout-open' : undefined}
+                    aria-current={activeTab === tab.id ? 'page' : undefined}
+                    aria-expanded={subPages ? flyoutOpen : undefined}
+                    // For the item with sub-pages, opening the tab also opens
+                    // the flyout. Hover can't be relied on for touch, and the
+                    // in-page sub-tab pills that used to cover that case are
+                    // gone, so this is the only route to the sub-pages.
+                    onClick={() => {
+                      onChange(tab.id)
+                      setMenuOpen(false)
+                      setOpenFlyout(subPages ? tab.id : null)
+                    }}
+                  >
+                    {tab.label}
+                  </button>
+
+                  {subPages && (
+                    <ul className={`sp-nav-flyout ${flyoutOpen ? 'is-open' : ''}`}>
+                      {subPages.map((sub) => (
+                        <li key={sub}>
+                          <button type="button" onClick={() => selectCspSubTab(sub)}>
+                            {sub}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
+
+          <div className="sp-nav-actions">
+            <button
+              type="button"
+              className="sp-nav-cta"
+              aria-current={activeTab === contactTabItem.id ? 'page' : undefined}
+              onClick={() => select(contactTabItem.id)}
+            >
+              {contactTabItem.label}
+            </button>
+          </div>
+        </div>
+      </nav>
     </div>
   )
 }
@@ -82,25 +198,6 @@ function Hero({ content }) {
         {content.body && <p className="sp-hero-body">{content.body}</p>}
       </div>
     </header>
-  )
-}
-
-function TabNav({ activeTab, onChange }) {
-  return (
-    <nav className="sp-tabnav" aria-label="Supplier page sections">
-      <div className="sp-tabnav-inner">
-        {MAIN_TABS.map((tab) => (
-          <button
-            key={tab.id}
-            className={`sp-tab ${activeTab === tab.id ? 'is-active' : ''}`}
-            onClick={() => onChange(tab.id)}
-            type="button"
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-    </nav>
   )
 }
 
@@ -137,7 +234,6 @@ function PromoCard({ card, icon: Icon, onNavigate }) {
           </span>
         )}
       </span>
-      <span className="sp-promo-underline" aria-hidden="true" />
       <h2 className="sp-promo-heading">{card.heading}</h2>
       <p className="sp-promo-body">{renderRichText(card.body, onNavigate)}</p>
     </div>
@@ -284,24 +380,11 @@ function highlightText(text, query) {
 
 /* ------------------------------- CSP tab -------------------------------- */
 
-function CspTab() {
-  const [subTab, setSubTab] = useState(cspTab.subTabs[0])
-
+// Sub-page is chosen from the nav's Coupa Supplier Portal dropdown; subTab is
+// owned by SupplierPage so that dropdown can set it.
+function CspTab({ subTab }) {
   return (
     <div className="sp-tabpanel">
-      <div className="sp-subtabs">
-        {cspTab.subTabs.map((t) => (
-          <button
-            key={t}
-            type="button"
-            className={`sp-pill ${subTab === t ? 'is-active' : ''}`}
-            onClick={() => setSubTab(t)}
-          >
-            {t}
-          </button>
-        ))}
-      </div>
-
       {subTab === 'Overview' && <CspOverview />}
       {subTab === 'How To Register' && <CspHowToRegister />}
       {subTab === 'First Time Users' && <CspFirstTimeUsers />}
@@ -668,47 +751,52 @@ function FaqTab() {
 
   return (
     <div className="sp-tabpanel">
-      <div className="sp-toc-layout">
-        <div className="sp-toc-content">
-          <label className="sp-faq-search-field">
-            <input
-              type="search"
-              className="sp-faq-search-input"
-              placeholder="Search by Keyword"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-            />
-            <SearchIcon className="sp-faq-search-icon" aria-hidden="true" />
-          </label>
+      {/* One unbroken charcoal band holding the search, every FAQ group and
+          the Table of Content. Rendered unconditionally so a search that
+          matches nothing still leaves the field on screen to clear. */}
+      <div className="sp-faq-panel">
+        <div className="sp-toc-layout">
+          <div className="sp-toc-content">
+            <label className="sp-faq-search-field">
+              <input
+                type="search"
+                className="sp-faq-search-input"
+                placeholder="Search by Keyword"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+              />
+              <SearchIcon className="sp-faq-search-icon" aria-hidden="true" />
+            </label>
 
-          {!hasResults && (
-            <p className="sp-text sp-text-muted">No results for “{query}”. Try a different search term.</p>
-          )}
+            {!hasResults && (
+              <p className="sp-faq-no-results">No results for “{query}”. Try a different search term.</p>
+            )}
 
-          {filteredGroups.map((group) => (
-            <section className="sp-faq-group" id={group.id} key={group.title}>
-              <h2 className="sp-faq-heading">{group.title}</h2>
-              <div className="sp-accordion">
-                {group.items.map((item) => (
-                  <AccordionItem key={item.q} item={item} forceOpen={Boolean(needle)} query={needle} />
-                ))}
-              </div>
-            </section>
-          ))}
+            {filteredGroups.map((group) => (
+              <section className="sp-faq-group" id={group.id} key={group.title}>
+                <h2 className="sp-faq-heading">{group.title}</h2>
+                <div className="sp-accordion">
+                  {group.items.map((item) => (
+                    <AccordionItem key={item.q} item={item} forceOpen={Boolean(needle)} query={needle} />
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
 
-          {showGuides && (
-            <DocAccordion
-              id="guides-accordion"
-              title="Supplier Guides"
-              documents={filteredGuides}
-              defaultOpen
-              query={needle}
-            />
-          )}
+          {tocItems.length > 0 && <TocCard items={tocItems} />}
         </div>
-
-        {tocItems.length > 0 && <TocCard items={tocItems} />}
       </div>
+
+      {showGuides && (
+        <DocAccordion
+          id="guides-accordion"
+          title="Supplier Guides"
+          documents={filteredGuides}
+          defaultOpen
+          query={needle}
+        />
+      )}
     </div>
   )
 }
@@ -825,8 +913,16 @@ function ContactTab() {
 
   return (
     <div className="sp-tabpanel">
-      <section className="sp-card sp-card-sharp">
+      <div className="sp-contact-layout">
+        <div className="sp-contact-intro">
+          <p className="sp-contact-eyebrow">Contact</p>
+          <h2 className="sp-contact-title">Vendor Support</h2>
+          <p className="sp-contact-lead">
+            For Vendor Assistance or inquiries complete the form below and our team will respond.
+          </p>
+        </div>
 
+        <section className="sp-card sp-contact-card">
         {submitted ? (
           <p className="sp-text">
             Thanks — your message has been received. A member of the BioTouch supplier team will be in
@@ -879,7 +975,7 @@ function ContactTab() {
               options={contactTab.countryOptions}
             />
             <ContactField
-              label="BioTouch Location Province/Territory"
+              label="BioTouch Location Territory"
               name="locationProvince"
               value={values.locationProvince}
               onChange={update('locationProvince')}
@@ -893,7 +989,7 @@ function ContactTab() {
               options={contactTab.categoryOptions}
             />
             <ContactField
-              label="What type of service do you provide?"
+              label="Service Provided"
               name="serviceType"
               value={values.serviceType}
               onChange={update('serviceType')}
@@ -916,16 +1012,21 @@ function ContactTab() {
                 {submitting ? 'Sending…' : 'Submit'}
               </button>
             </div>
-          </form>
-        )}
-      </section>
+            </form>
+          )}
+        </section>
+      </div>
     </div>
   )
 }
 
 function ContactField({ label, name, value, onChange, maxLength, type = 'text', textarea = false, counterBelow = false }) {
   return (
-    <label className={`sp-field ${counterBelow ? 'sp-field-counter-layout' : ''}`}>
+    <label
+      className={`sp-field ${counterBelow ? 'sp-field-counter-layout' : ''} ${
+        textarea ? 'sp-field-wide' : ''
+      }`}
+    >
       {textarea ? (
         <textarea
           className="sp-field-control sp-field-textarea"

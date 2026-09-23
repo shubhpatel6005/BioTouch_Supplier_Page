@@ -46,9 +46,9 @@ export default async function handler(req, res) {
     ['Phone', body.phone],
     ['Company Name', body.companyName],
     ['BioTouch Location Country', body.locationCountry],
-    ['BioTouch Location Province/Territory', body.locationProvince],
+    ['BioTouch Location Territory', body.locationProvince],
     ['Category', body.category],
-    ['Service Type', body.serviceType],
+    ['Service Provided', body.serviceType],
   ].filter(([, value]) => String(value || '').trim())
 
   const textBody = [

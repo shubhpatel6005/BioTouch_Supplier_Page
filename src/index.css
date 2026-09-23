@@ -8,6 +8,11 @@ body {
   padding: 0;
 }
 
+html {
+  /* Stops iOS/Android inflating text when a phone is rotated to landscape. */
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   font-family: 'Nunito', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   background: #ffffff;
@@ -17,4 +22,6 @@ body {
 
 #root {
   min-height: 100vh;
+  /* dvh tracks the mobile URL bar showing/hiding; vh above is the fallback. */
+  min-height: 100dvh;
 }

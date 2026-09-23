@@ -98,6 +98,18 @@ export const SearchIcon = (props) => (
   </svg>
 )
 
+export const MenuIcon = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="22" height="22" {...props}>
+    <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+)
+
+export const CloseIcon = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="22" height="22" {...props}>
+    <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+)
+
 export const DocumentDownloadIcon = (props) => (
   <svg viewBox="0 0 24 24" fill="none" width="19" height="19" {...props}>
     <path d="M12 4v10m0 0l-3.5-3.5M12 14l3.5-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
